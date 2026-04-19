@@ -411,7 +411,14 @@ function MonthDetail({ id, go }) {
               }} onClick={() => go({ tab: 'tours', id: t.id })}>
                 {/* Tour name + note */}
                 <div>
-                  <h4 className="h-display" style={{ fontSize: 20, marginBottom: 6 }}>{t.name}</h4>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6 }}>
+                    <h4 className="h-display" style={{ fontSize: 20, margin: 0 }}>{t.name}</h4>
+                    {t.trending && (
+                      <span style={{ fontSize: 10, fontFamily: 'var(--mono)', letterSpacing: '0.1em', textTransform: 'uppercase', background: 'var(--accent)', color: '#fff', padding: '2px 8px', borderRadius: 2, whiteSpace: 'nowrap' }}>
+                        ↑ trending
+                      </span>
+                    )}
+                  </div>
                   <div className="label" style={{ color: 'var(--ink-3)', marginBottom: 8 }}>{t.region} · {t.province}</div>
                   {hotNote && (
                     <div style={{ fontSize: 13, fontFamily: 'var(--serif)', fontStyle: 'italic', color: 'var(--accent)', lineHeight: 1.4 }}>

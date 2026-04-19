@@ -330,6 +330,23 @@ export const halongHub = {
     { name: 'Coffee-to-Cruise Bundle', impact: 4, stars: '★★★★☆', peak: '2026', note: 'Cross-sell cruise + workshop HN. Bundle booking tăng 35–45%/năm trên GYG/Klook. Incremental $80K–180K/năm cho operator mid-size.' },
     { name: 'AI Booking & Personalization', impact: 3, stars: '★★★☆☆', peak: '2026–2028', note: 'Smart chatbot + dynamic pricing tăng direct conversion 20–30%. GYG/Klook đang triển khai AI recommendation.' },
   ],
+  topMarkets: [
+    { flag: '🇨🇳', name: 'Trung Quốc', pct: 25, note: 'Day cruise + đoàn lớn · Ctrip / Klook · peak T4–T5 & T10' },
+    { flag: '🇻🇳', name: 'Nội địa',    pct: 18, note: 'Weekend trip từ Hà Nội · Direct / Zalo · peak T4–T5 & T8–T9' },
+    { flag: '🇰🇷', name: 'Hàn Quốc',  pct: 16, note: 'Couple & nhóm bạn · Klook flash sale · peak T6–T8' },
+    { flag: '🇮🇳', name: 'Ấn Độ',     pct: 12, note: 'Gia đình 6–10 người · MakeMyTrip · peak T12–T3' },
+    { flag: '🇺🇸', name: 'Mỹ',        pct: 12, note: 'Premium & luxury · Viator / GYG · peak T3–T4 & T10–T11' },
+    { flag: '🇦🇺', name: 'Úc',        pct:  9, note: 'Adventure mid-premium · GYG AU · peak T4 & T10' },
+    { flag: '🌏',  name: 'Khác',       pct:  8, note: 'Đài Loan, Anh, Pháp, ASEAN' },
+  ],
+  topOtas: [
+    { name: 'Klook',            pct: 28, note: 'Flash sale Hàn + ASEAN · mạnh nhất day cruise & overnight' },
+    { name: 'GetYourGuide',     pct: 22, note: 'Âu + Úc + premium · top kết quả tìm "Lan Ha Bay"' },
+    { name: 'Viator',           pct: 18, note: 'US market · premium & luxury · review trust cao nhất' },
+    { name: 'Direct / Zalo',    pct: 12, note: 'Nội địa + luxury tier · 0% commission' },
+    { name: 'Ctrip / Trip.com', pct: 12, note: 'Kênh duy nhất reach sâu thị trường Trung Quốc' },
+    { name: 'MakeMyTrip',       pct:  8, note: 'Ấn Độ dominant · bundle gia đình' },
+  ],
   designLevers: [
     { market: 'Mỹ 🇺🇸', type: 'Couple/Family 40–55', lever: 'Cultural storytelling sâu về ngư dân, lịch sử vịnh. Sunset private dinner. Flexible itinerary. Cancellation policy rõ ràng.', impact: '+$40–80/người' },
     { market: 'Úc 🇦🇺', type: 'Couple/Adventure 35–55', lever: 'Small group <20 pax. Kayak hang sâu, squid fishing đêm, tai chi sunrise. Guide kể chuyện thật, không script.', impact: '+$30–60/người' },
@@ -341,6 +358,7 @@ export const halongHub = {
 
 const tours = [
   { id: 'ha-giang-jeep',
+    trending: true,
     name: 'Hà Giang Jeep 4N3Đ',
     region: 'Bắc', province: 'Hà Giang',
     price: '$180–$280', priceLow: 180, priceHigh: 280,
@@ -459,7 +477,7 @@ const tours = [
     rating: 4.6, reviews: 820,
   },
   {
-    id: 'mekong-delta', name: 'Mekong Delta Day Trip',
+    id: 'mekong-delta', trending: true, name: 'Mekong Delta Day Trip',
     region: 'Nam', province: 'Tiền Giang',
     price: '$40–$70', priceLow: 40, priceHigh: 70,
     desc: 'My Tho & Ben Tre 1 ngày — chợ nổi, vườn dừa, thuyền nhỏ. Viator: 7,485 reviews. Klook: 20,000+ bookings đã xác nhận.',
@@ -498,7 +516,7 @@ const tours = [
     rating: 4.6, reviews: 920,
   },
   {
-    id: 'ninh-binh', name: 'Ninh Bình Tam Cốc',
+    id: 'ninh-binh', trending: true, name: 'Ninh Bình Tam Cốc',
     region: 'Bắc', province: 'Ninh Bình',
     price: '$30–$65', priceLow: 30, priceHigh: 65,
     desc: 'Hoa Lư + Tràng An + hang Múa. Viator: 8,425 reviews — top 3 VN listing. Full-day từ Hà Nội.',
@@ -536,7 +554,7 @@ const tours = [
     rating: 4.8, reviews: 1100,
   },
   {
-    id: 'saigon-vespa', name: 'Saigon Vespa Night',
+    id: 'saigon-vespa', trending: true, name: 'Saigon Vespa Night',
     region: 'Nam', province: 'HCMC',
     price: '$40–$65', priceLow: 40, priceHigh: 65,
     desc: 'Street food 4h trên Vespa, Old Quarter HCMC đêm. XO Tours: 7,520 TripAdvisor reviews. Viator per listing: 916 reviews.',
