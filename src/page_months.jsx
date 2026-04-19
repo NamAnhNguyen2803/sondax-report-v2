@@ -22,7 +22,7 @@ function MonthsIndex({ go }) {
   const peakMonth = months.reduce((a, b) =>
     parseBookings(a.summary?.totalBookings) >= parseBookings(b.summary?.totalBookings) ? a : b
   );
-  const destRegions = months[0].destinations.map(d => d.region);
+  const GROUPS = D.MONTH_GROUPS;
   const phaseColors = { execute: 'var(--ink)', book: 'var(--accent)', prepare: 'var(--paper-3)' };
   const phaseText   = { execute: 'var(--paper)', book: 'var(--paper)', prepare: 'var(--ink-3)' };
   const phaseLabel  = { execute: '▶ EXECUTE', book: '◎ BOOK', prepare: '○ PREP' };
@@ -113,13 +113,13 @@ function MonthsIndex({ go }) {
               ))}
             </div>
             {/* Destination rows */}
-            {destRegions.map((region, ri) => (
-              <div key={ri} style={{ display: 'grid', gridTemplateColumns: '192px repeat(12, 1fr)', gap: 3, marginBottom: 3 }}>
+            {GROUPS.map((g) => (
+              <div key={g.id} style={{ display: 'grid', gridTemplateColumns: '192px repeat(12, 1fr)', gap: 3, marginBottom: 3 }}>
                 <div style={{ fontFamily: 'var(--sans)', fontSize: 12, color: 'var(--ink-2)', display: 'flex', alignItems: 'center', paddingRight: 8 }}>
-                  {region}
+                  {g.label}
                 </div>
                 {months.map(m => {
-                  const dest = m.destinations?.[ri];
+                  const dest = m.destinations?.find(d => d.groupId === g.id);
                   const bg = dest?.status === 'green' ? 'var(--ok)' : dest?.status === 'yellow' ? 'var(--warn)' : dest?.status === 'red' ? 'var(--bad)' : 'var(--paper-3)';
                   return (
                     <div key={m.id}
@@ -495,30 +495,18 @@ function MonthDetail({ id, go }) {
             dek="Xếp theo mức độ thuận lợi — từ điểm đang vào mùa đến nơi nên tránh."
           />
           {(() => {
-            // Province → destination region key (partial match against d.region)
-            const provinceRegion = {
-              'Hà Giang': 'Sapa / Hà Giang',
-              'Lào Cai':  'Sapa / Hà Giang',
-              'Thanh Hóa':'Sapa / Hà Giang',
-              'Hội An':   'Đà Nẵng / Hội An / Nha Trang',
-              'Đà Nẵng':  'Đà Nẵng / Hội An / Nha Trang',
-              'Khánh Hòa':'Đà Nẵng / Hội An / Nha Trang',
-              'Huế':      'Đà Nẵng / Hội An / Nha Trang',
-              'Bình Định':'Đà Nẵng / Hội An / Nha Trang',
-              'HCMC':     'HCMC / Đà Lạt / Mekong',
-              'Tiền Giang':'HCMC / Đà Lạt / Mekong',
-              'Lâm Đồng': 'HCMC / Đà Lạt / Mekong',
-              'BR-VT':    'HCMC / Đà Lạt / Mekong',
-              'Hà Nội':   'Hà Nội',
-              'Ninh Bình':'Hà Nội',
-              'Kiên Giang':'Phú Quốc',
-              'Hạ Long':  'Hạ Long Bay',
-              'Hải Phòng':'Hạ Long Bay',
-              'Quảng Ninh':'Hạ Long Bay',
+            // Tours belonging to a month-group = tours whose destination is in group.destinationIds
+            const toursForGroup = (groupId) => {
+              const group = D.MONTH_GROUPS.find(g => g.id === groupId);
+              if (!group) return [];
+              const destSet = new Set(group.destinationIds);
+              return D.tours.filter(t => {
+                if (t.placeholder) return false;
+                if (!t.bookings?.[m.id]) return false;
+                const ref = D.tourDestinationIndex[t.id];
+                return ref && destSet.has(ref.destinationId);
+              });
             };
-            // For each destination region, find tours (from ALL tours, not just featuredTours) whose province maps here
-            const toursForRegion = (region) =>
-              D.tours.filter(t => !t.placeholder && provinceRegion[t.province] === region && t.bookings?.[m.id]);
 
             return (
               <div style={{ borderTop: '2px solid var(--ink)' }}>
@@ -526,7 +514,9 @@ function MonthDetail({ id, go }) {
                   const order = { green: 0, yellow: 1, red: 2 };
                   return order[a.status] - order[b.status] || (b.visitors || 0) - (a.visitors || 0);
                 }).map((d, i) => {
-                  const regionTours = toursForRegion(d.region);
+                  const group = D.monthGroup(d.groupId);
+                  const groupLabel = group ? group.label : d.groupId;
+                  const regionTours = toursForGroup(d.groupId);
                   return (
                     <div key={i} style={{
                       display: 'grid',
@@ -537,7 +527,7 @@ function MonthDetail({ id, go }) {
                     }}>
                       <div style={{ paddingTop: 4 }}><Dot status={d.status} /></div>
                       <div>
-                        <h4 className="h-display" style={{ fontSize: 22, marginBottom: 4 }}>{d.region}</h4>
+                        <h4 className="h-display" style={{ fontSize: 22, marginBottom: 4 }}>{groupLabel}</h4>
                         {d.visitors && <div className="label" style={{ color: 'var(--ink-4)', fontSize: 11, marginTop: 4 }}>~{d.visitors}k khách/tháng</div>}
                         {regionTours.length > 0 && (
                           <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 6 }}>

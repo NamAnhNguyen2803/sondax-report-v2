@@ -174,6 +174,72 @@ function Breadcrumb({ history, back, goBreadcrumb }) {
   );
 }
 
+// -------- Crumbs (semantic hierarchy — always shows on subpages) --------
+
+function buildCrumbs(route) {
+  const D = DATA;
+  const tabLabels = { months: 'Tháng', tours: 'Tour', markets: 'Khách', otas: 'Sàn OTA' };
+  if (!route.tab || route.tab === 'home') return [];
+  const crumbs = [{ label: tabLabels[route.tab] || route.tab, to: { tab: route.tab } }];
+  if (!route.id) return crumbs;
+
+  if (route.tab === 'tours') {
+    if (route.id === 'hanoi-hub') {
+      crumbs.push({ label: 'Hà Nội Hub', to: { tab: 'tours', id: 'hanoi-hub' } });
+    } else if (route.id === 'halong-hub') {
+      crumbs.push({ label: 'Hạ Long Hub', to: { tab: 'tours', id: 'halong-hub' } });
+    } else if (typeof route.id === 'string' && route.id.startsWith('hn-')) {
+      crumbs.push({ label: 'Hà Nội Hub', to: { tab: 'tours', id: 'hanoi-hub' } });
+      const v = D.hanoiHub && D.hanoiHub.variants && D.hanoiHub.variants.find((x) => x.id === route.id);
+      crumbs.push({ label: v ? v.name : route.id, to: { tab: 'tours', id: route.id } });
+    } else {
+      const t = D.tours.find((x) => x.id === route.id);
+      crumbs.push({ label: t ? t.name : route.id, to: { tab: 'tours', id: route.id } });
+    }
+  } else if (route.tab === 'months') {
+    const m = D.months.find((x) => x.id === route.id);
+    crumbs.push({ label: m ? m.name : `Tháng ${route.id}`, to: { tab: 'months', id: route.id } });
+  } else if (route.tab === 'markets') {
+    const m = D.markets.find((x) => x.id === route.id);
+    crumbs.push({ label: m ? `${m.flag} ${m.name}` : route.id, to: { tab: 'markets', id: route.id } });
+  } else if (route.tab === 'otas') {
+    const o = D.otas.find((x) => x.id === route.id);
+    crumbs.push({ label: o ? o.name : route.id, to: { tab: 'otas', id: route.id } });
+  }
+  return crumbs;
+}
+
+function Crumbs({ route, go }) {
+  const crumbs = buildCrumbs(route);
+  if (crumbs.length <= 1) return null;
+  return (
+    <div style={{ borderBottom: '1px solid var(--rule)', background: 'var(--paper)' }}>
+      <div className="stage" style={{ display: 'flex', gap: 10, alignItems: 'center', padding: '14px 0' }}>
+        <span style={{ fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--ink-3)', letterSpacing: '0.08em' }}>←</span>
+        {crumbs.map((c, i) => {
+          const isLast = i === crumbs.length - 1;
+          return (
+            <React.Fragment key={i}>
+              {i > 0 && <span style={{ fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--ink-4)' }}>/</span>}
+              {isLast ? (
+                <span style={{ fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--ink)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>{c.label}</span>
+              ) : (
+                <button
+                  onClick={() => go(c.to)}
+                  style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--ink-3)', letterSpacing: '0.08em', textTransform: 'uppercase' }}
+                  onMouseOver={(e) => (e.currentTarget.style.color = 'var(--ink)')}
+                  onMouseOut={(e) => (e.currentTarget.style.color = 'var(--ink-3)')}>
+                  {c.label}
+                </button>
+              )}
+            </React.Fragment>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 // -------- Chips / cross-links --------
 
 function Chip({ to, go, children, placeholder }) {
@@ -302,7 +368,7 @@ function TweaksPanel({ tweaks, setTweaks, onClose }) {
 
 export {
   useRouter, labelRoute,
-  Masthead, Breadcrumb,
+  Masthead, Breadcrumb, Crumbs,
   Chip, XLink, MonthChip, TourChip, MarketChip, OtaChip,
   Dot, StatusPill, SectionHeader, Placeholder,
   TweaksPanel,

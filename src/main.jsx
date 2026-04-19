@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles.css';
-import { useRouter, labelRoute, Masthead, Breadcrumb, TweaksPanel } from './shell.jsx';
+import { useRouter, labelRoute, Masthead, Crumbs, TweaksPanel } from './shell.jsx';
 import Home from './page_home.jsx';
 import MonthsPage from './page_months.jsx';
 import ToursPage from './page_tours.jsx';
@@ -68,7 +68,7 @@ function App() {
   return (
     <div data-screen-label={labelRoute(route)}>
       <Masthead route={route} go={go} />
-      <Breadcrumb history={history} back={back} goBreadcrumb={goBreadcrumb} />
+      <Crumbs route={route} go={go} />
       {page}
       {tweaksOpen && <TweaksPanel tweaks={tweaks} setTweaks={onSetTweaks} onClose={() => setTweaksOpen(false)} />}
     </div>

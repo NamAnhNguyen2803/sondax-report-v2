@@ -98,8 +98,63 @@ function HalongHubPage({ go }) {
         </div>
       </section>
 
-      {/* Variants */}
+      {/* Overview: Top markets + Top OTAs */}
       <section className="section">
+        <div className="stage">
+          <SectionHeader
+            kicker="Tổng quan thị trường"
+            title="Ai đang đến — và book qua đâu."
+            dek="Tổng hợp toàn bộ phân khúc cruise Hạ Long. Xem chi tiết từng biến thể ở phần bên dưới."
+          />
+          <div className="grid-2" style={{ gridTemplateColumns: '1fr 1fr', gap: 64, borderTop: '2px solid var(--ink)', paddingTop: 32 }}>
+
+            {/* Top markets */}
+            <div>
+              <div className="h-kicker" style={{ marginBottom: 20 }}>Top thị trường nguồn</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+                {H.topMarkets.map((m, i) => (
+                  <div key={i} style={{ padding: '14px 0', borderBottom: '1px solid var(--rule)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                        <span style={{ fontSize: 20 }}>{m.flag}</span>
+                        <span style={{ fontFamily: 'var(--serif)', fontSize: 17, fontWeight: 500 }}>{m.name}</span>
+                      </div>
+                      <div style={{ fontFamily: 'var(--mono)', fontSize: 18, fontWeight: 500, color: 'var(--accent)' }}>{m.pct}%</div>
+                    </div>
+                    <div style={{ height: 3, background: 'var(--rule)', marginBottom: 8, borderRadius: 2 }}>
+                      <div style={{ height: '100%', width: m.pct + '%', background: 'var(--accent)', borderRadius: 2 }} />
+                    </div>
+                    <div style={{ fontSize: 12, fontFamily: 'var(--sans)', color: 'var(--ink-3)', lineHeight: 1.5 }}>{m.note}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Top OTAs */}
+            <div>
+              <div className="h-kicker" style={{ marginBottom: 20 }}>Top sàn OTA toàn thị trường</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+                {H.topOtas.map((o, i) => (
+                  <div key={i} style={{ padding: '14px 0', borderBottom: '1px solid var(--rule)' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+                      <div style={{ fontFamily: 'var(--serif)', fontSize: 17, fontWeight: 500 }}>{o.name}</div>
+                      <div style={{ fontFamily: 'var(--mono)', fontSize: 18, fontWeight: 500, color: 'var(--ok)' }}>{o.pct}%</div>
+                    </div>
+                    <div style={{ height: 3, background: 'var(--rule)', marginBottom: 8, borderRadius: 2 }}>
+                      <div style={{ height: '100%', width: o.pct + '%', background: 'var(--ok)', borderRadius: 2 }} />
+                    </div>
+                    <div style={{ fontSize: 12, fontFamily: 'var(--sans)', color: 'var(--ink-3)', lineHeight: 1.5 }}>{o.note}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Variants */}
+      <section className="section" style={{ background: 'var(--paper-2)' }}>
         <div className="stage">
           <SectionHeader
             kicker="Biến thể sản phẩm"
@@ -128,9 +183,12 @@ function HalongHubPage({ go }) {
 
           {(() => {
             const v = H.variants[activeVariant];
+            const hasDays = v.itinerary && v.itinerary.some((s) => s.day);
             return (
               <div style={{ borderTop: '2px solid var(--ink)', paddingTop: 32 }}>
-                <div className="grid-2" style={{ gridTemplateColumns: '1fr 1fr', gap: 48 }}>
+
+                {/* Header row */}
+                <div className="grid-2" style={{ gridTemplateColumns: '1fr 1fr', gap: 48, marginBottom: 40 }}>
                   <div>
                     <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 16 }}>
                       <h3 className="h-display" style={{ fontSize: 32 }}>{v.name}</h3>
@@ -194,9 +252,193 @@ function HalongHubPage({ go }) {
                     </div>
                   </div>
                 </div>
+
+                {/* Market share + Top OTAs */}
+                {(v.marketShare || v.topOtas) && (
+                  <div style={{ borderTop: '1px solid var(--rule)', paddingTop: 32, marginBottom: 40 }}>
+                    <div className="grid-2" style={{ gridTemplateColumns: '1fr 1fr', gap: 48 }}>
+
+                      {/* Market breakdown */}
+                      {v.marketShare && (
+                        <div>
+                          <div className="h-kicker" style={{ marginBottom: 16 }}>Thị trường nguồn — ai đang book</div>
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+                            {v.marketShare.map((m, i) => (
+                              <div key={i} style={{ padding: '14px 0', borderBottom: '1px solid var(--rule)' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 6 }}>
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                                    <span style={{ fontSize: 18 }}>{m.flag}</span>
+                                    <span style={{ fontFamily: 'var(--serif)', fontSize: 16, fontWeight: 500 }}>{m.name}</span>
+                                  </div>
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                                    <div style={{ fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--ink-3)' }}>Peak {m.peak}</div>
+                                    <div style={{ fontFamily: 'var(--mono)', fontSize: 16, fontWeight: 500, color: 'var(--accent)', minWidth: 36, textAlign: 'right' }}>{m.pct}%</div>
+                                  </div>
+                                </div>
+                                <div style={{ height: 3, background: 'var(--rule)', marginBottom: 8, borderRadius: 2 }}>
+                                  <div style={{ height: '100%', width: m.pct + '%', background: 'var(--accent)', borderRadius: 2 }} />
+                                </div>
+                                <div style={{ fontSize: 12, fontFamily: 'var(--sans)', color: 'var(--ink-3)', lineHeight: 1.5 }}>{m.note}</div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Top OTAs */}
+                      {v.topOtas && (
+                        <div>
+                          <div className="h-kicker" style={{ marginBottom: 16 }}>Sàn OTA đứng đầu — đưa lên đâu</div>
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+                            {v.topOtas.map((o, i) => (
+                              <div key={i} style={{ padding: '14px 0', borderBottom: '1px solid var(--rule)' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 6 }}>
+                                  <div style={{ fontFamily: 'var(--serif)', fontSize: 16, fontWeight: 500 }}>{o.name}</div>
+                                  <div style={{ fontFamily: 'var(--mono)', fontSize: 16, fontWeight: 500, color: 'var(--ok)' }}>{o.share}</div>
+                                </div>
+                                <div style={{ height: 3, background: 'var(--rule)', marginBottom: 8, borderRadius: 2 }}>
+                                  <div style={{ height: '100%', width: o.share, background: 'var(--ok)', borderRadius: 2 }} />
+                                </div>
+                                <div style={{ fontSize: 12, fontFamily: 'var(--sans)', color: 'var(--ink-3)', lineHeight: 1.5 }}>{o.strength}</div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Itinerary */}
+                {v.itinerary && (
+                  <div style={{ borderTop: '1px solid var(--rule)', paddingTop: 32 }}>
+                    <div className="h-kicker" style={{ marginBottom: 16 }}>Lịch trình chi tiết</div>
+                    {hasDays ? (
+                      (() => {
+                        const days = [...new Set(v.itinerary.map((s) => s.day))];
+                        return (
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+                            {days.map((d) => (
+                              <div key={d}>
+                                <div style={{
+                                  fontFamily: 'var(--mono)', fontSize: 11, letterSpacing: '0.12em',
+                                  textTransform: 'uppercase', color: 'var(--accent)', marginBottom: 10,
+                                }}>Ngày {d}</div>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+                                  {v.itinerary.filter((s) => s.day === d).map((s, i) => (
+                                    <div key={i} style={{ display: 'grid', gridTemplateColumns: '72px 1fr', gap: 16, padding: '10px 0', borderBottom: '1px solid var(--rule)' }}>
+                                      <div style={{ fontFamily: 'var(--mono)', fontSize: 12, color: 'var(--ink-3)', paddingTop: 2 }}>{s.time}</div>
+                                      <div style={{ fontSize: 14, fontFamily: 'var(--sans)', lineHeight: 1.5, color: 'var(--ink)' }}>{s.stop}</div>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        );
+                      })()
+                    ) : (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+                        {v.itinerary.map((s, i) => (
+                          <div key={i} style={{ display: 'grid', gridTemplateColumns: '72px 1fr', gap: 16, padding: '10px 0', borderBottom: '1px solid var(--rule)' }}>
+                            <div style={{ fontFamily: 'var(--mono)', fontSize: 12, color: 'var(--ink-3)', paddingTop: 2 }}>{s.time}</div>
+                            <div style={{ fontSize: 14, fontFamily: 'var(--sans)', lineHeight: 1.5, color: 'var(--ink)' }}>{s.stop}</div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    {v.itineraryNote && (
+                      <div style={{ marginTop: 16, fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--ink-3)', letterSpacing: '0.06em', lineHeight: 1.6 }}>
+                        ⚠ {v.itineraryNote}
+                      </div>
+                    )}
+                  </div>
+                )}
+
               </div>
             );
           })()}
+        </div>
+      </section>
+
+      {/* OTA by market matrix */}
+      <section className="section" style={{ background: 'var(--paper-2)' }}>
+        <div className="stage">
+          <SectionHeader
+            kicker="Ma trận OTA × Thị trường"
+            title="Từng quốc gia book qua đâu."
+            dek="5 = sàn chủ đạo · 3 = có dùng · 1 = ít dùng. Màu đậm = ưu tiên cao. Dùng bảng này để quyết định listing nào đẩy cho market nào."
+          />
+          <div style={{ overflowX: 'auto' }}>
+            <table className="t" style={{ minWidth: 600 }}>
+              <thead>
+                <tr>
+                  <th>Thị trường</th>
+                  {['Booking.com', 'Agoda', 'GetYourGuide', 'Klook', 'Viator', 'Direct'].map((ota) => (
+                    <th key={ota} className="num" style={{ minWidth: 80 }}>{ota}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {H.otaByMarket.map((row, i) => (
+                  <tr key={i}>
+                    <td style={{ fontFamily: 'var(--sans)', fontSize: 14, whiteSpace: 'nowrap' }}>{row.market}</td>
+                    {[row.booking, row.agoda, row.gyg, row.klook, row.viator, row.direct].map((val, j) => (
+                      <td key={j} style={{ textAlign: 'center', padding: '12px 8px' }}>
+                        <div style={{
+                          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                          width: 36, height: 36,
+                          background: val >= 4 ? 'var(--accent)' : val >= 3 ? 'var(--accent-soft)' : val >= 2 ? 'var(--paper-3)' : 'var(--paper)',
+                          color: val >= 4 ? 'var(--paper)' : 'var(--ink)',
+                          fontFamily: 'var(--mono)', fontSize: 13, fontWeight: 500,
+                          border: val >= 4 ? 'none' : '1px solid var(--rule)',
+                        }}>
+                          {val}
+                        </div>
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div style={{ marginTop: 16, display: 'flex', gap: 20, fontSize: 11, fontFamily: 'var(--mono)', color: 'var(--ink-3)', textTransform: 'uppercase', letterSpacing: '0.08em', flexWrap: 'wrap' }}>
+            <span><span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--accent)', marginRight: 6, verticalAlign: 'middle' }} />5 — Sàn chủ đạo</span>
+            <span><span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--accent-soft)', marginRight: 6, verticalAlign: 'middle' }} />3–4 — Có dùng nhiều</span>
+            <span><span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--paper-3)', border: '1px solid var(--rule)', marginRight: 6, verticalAlign: 'middle' }} />1–2 — Ít dùng</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Design levers */}
+      <section className="section">
+        <div className="stage">
+          <SectionHeader
+            kicker="Design levers theo thị trường"
+            title="Cùng 1 tàu, 5 câu chuyện khác nhau."
+            dek="Thay đổi gì trong tour design để pull từng thị trường — và justify tăng giá."
+          />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 0, borderTop: '2px solid var(--ink)' }}>
+            {H.designLevers.map((d, i) => (
+              <div key={i} style={{ display: 'grid', gridTemplateColumns: '200px 160px 1fr 140px', gap: 32, padding: '28px 0', borderBottom: '1px solid var(--rule)', alignItems: 'start' }}>
+                <div>
+                  <div style={{ fontFamily: 'var(--serif)', fontSize: 22, fontWeight: 500, marginBottom: 6 }}>{d.market}</div>
+                </div>
+                <div>
+                  <div className="label" style={{ marginBottom: 4 }}>Loại khách</div>
+                  <div style={{ fontSize: 13, fontFamily: 'var(--sans)', color: 'var(--ink-2)', lineHeight: 1.4 }}>{d.type}</div>
+                </div>
+                <div>
+                  <div className="label" style={{ marginBottom: 8 }}>Thay đổi gì trong thiết kế tour</div>
+                  <div style={{ fontSize: 14, fontFamily: 'var(--sans)', color: 'var(--ink)', lineHeight: 1.6 }}>{d.lever}</div>
+                </div>
+                <div style={{ textAlign: 'right' }}>
+                  <div className="label" style={{ marginBottom: 4 }}>Tác động</div>
+                  <div style={{ fontFamily: 'var(--mono)', fontSize: 13, color: 'var(--ok)', fontWeight: 500 }}>{d.impact}</div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -269,57 +511,8 @@ function HalongHubPage({ go }) {
         </div>
       </section>
 
-      {/* OTA by market matrix */}
-      <section className="section">
-        <div className="stage">
-          <SectionHeader
-            kicker="Ma trận OTA × Thị trường"
-            title="Từng quốc gia book qua đâu."
-            dek="5 = sàn chủ đạo · 3 = có dùng · 1 = ít dùng. Màu đậm = ưu tiên cao. Dùng bảng này để quyết định listing nào đẩy cho market nào."
-          />
-          <div style={{ overflowX: 'auto' }}>
-            <table className="t" style={{ minWidth: 600 }}>
-              <thead>
-                <tr>
-                  <th>Thị trường</th>
-                  {['Booking.com', 'Agoda', 'GetYourGuide', 'Klook', 'Viator', 'Direct'].map((ota) => (
-                    <th key={ota} className="num" style={{ minWidth: 80 }}>{ota}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {H.otaByMarket.map((row, i) => (
-                  <tr key={i}>
-                    <td style={{ fontFamily: 'var(--sans)', fontSize: 14, whiteSpace: 'nowrap' }}>{row.market}</td>
-                    {[row.booking, row.agoda, row.gyg, row.klook, row.viator, row.direct].map((val, j) => (
-                      <td key={j} style={{ textAlign: 'center', padding: '12px 8px' }}>
-                        <div style={{
-                          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                          width: 36, height: 36,
-                          background: val >= 4 ? 'var(--accent)' : val >= 3 ? 'var(--accent-soft)' : val >= 2 ? 'var(--paper-3)' : 'var(--paper)',
-                          color: val >= 4 ? 'var(--paper)' : 'var(--ink)',
-                          fontFamily: 'var(--mono)', fontSize: 13, fontWeight: 500,
-                          border: val >= 4 ? 'none' : '1px solid var(--rule)',
-                        }}>
-                          {val}
-                        </div>
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div style={{ marginTop: 16, display: 'flex', gap: 20, fontSize: 11, fontFamily: 'var(--mono)', color: 'var(--ink-3)', textTransform: 'uppercase', letterSpacing: '0.08em', flexWrap: 'wrap' }}>
-            <span><span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--accent)', marginRight: 6, verticalAlign: 'middle' }} />5 — Sàn chủ đạo</span>
-            <span><span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--accent-soft)', marginRight: 6, verticalAlign: 'middle' }} />3–4 — Có dùng nhiều</span>
-            <span><span style={{ display: 'inline-block', width: 12, height: 12, background: 'var(--paper-3)', border: '1px solid var(--rule)', marginRight: 6, verticalAlign: 'middle' }} />1–2 — Ít dùng</span>
-          </div>
-        </div>
-      </section>
-
       {/* Pain points */}
-      <section className="section" style={{ background: 'var(--paper-2)' }}>
+      <section className="section">
         <div className="stage">
           <SectionHeader
             kicker="Pain points từ OTA reviews 1–3★"
@@ -366,7 +559,7 @@ function HalongHubPage({ go }) {
       </section>
 
       {/* Xu hướng */}
-      <section className="section">
+      <section className="section" style={{ background: 'var(--paper-2)' }}>
         <div className="stage">
           <SectionHeader
             kicker="7 xu hướng định hình 2026–2028"
@@ -382,38 +575,6 @@ function HalongHubPage({ go }) {
                   <div style={{ fontFamily: 'var(--mono)', fontSize: 12 }}>{t.peak}</div>
                 </div>
                 <div style={{ fontSize: 14, fontFamily: 'var(--sans)', color: 'var(--ink-2)', lineHeight: 1.55 }}>{t.note}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Design levers */}
-      <section className="section" style={{ background: 'var(--paper-2)' }}>
-        <div className="stage">
-          <SectionHeader
-            kicker="Design levers theo thị trường"
-            title="Cùng 1 tàu, 5 câu chuyện khác nhau."
-            dek="Thay đổi gì trong tour design để pull từng thị trường — và justify tăng giá."
-          />
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 0, borderTop: '2px solid var(--ink)' }}>
-            {H.designLevers.map((d, i) => (
-              <div key={i} style={{ display: 'grid', gridTemplateColumns: '200px 160px 1fr 140px', gap: 32, padding: '28px 0', borderBottom: '1px solid var(--rule)', alignItems: 'start' }}>
-                <div>
-                  <div style={{ fontFamily: 'var(--serif)', fontSize: 22, fontWeight: 500, marginBottom: 6 }}>{d.market}</div>
-                </div>
-                <div>
-                  <div className="label" style={{ marginBottom: 4 }}>Loại khách</div>
-                  <div style={{ fontSize: 13, fontFamily: 'var(--sans)', color: 'var(--ink-2)', lineHeight: 1.4 }}>{d.type}</div>
-                </div>
-                <div>
-                  <div className="label" style={{ marginBottom: 8 }}>Thay đổi gì trong thiết kế tour</div>
-                  <div style={{ fontSize: 14, fontFamily: 'var(--sans)', color: 'var(--ink)', lineHeight: 1.6 }}>{d.lever}</div>
-                </div>
-                <div style={{ textAlign: 'right' }}>
-                  <div className="label" style={{ marginBottom: 4 }}>Tác động</div>
-                  <div style={{ fontFamily: 'var(--mono)', fontSize: 13, color: 'var(--ok)', fontWeight: 500 }}>{d.impact}</div>
-                </div>
               </div>
             ))}
           </div>
