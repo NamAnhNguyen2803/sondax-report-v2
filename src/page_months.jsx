@@ -227,6 +227,7 @@ function MonthDetail({ id, go }) {
     );
   }
 
+  const [showTopOta, setShowTopOta] = React.useState(true);
   const tours = m.featuredTours.map((id) => D.tours.find((t) => t.id === id)).filter(Boolean);
   const markets = m.featuredMarkets.map((id) => D.markets.find((t) => t.id === id)).filter(Boolean);
   const otaBookings = m.otaBookings || [];
@@ -368,37 +369,6 @@ function MonthDetail({ id, go }) {
       </section>
       )}
 
-      {/* Destinations traffic-light */}
-      <section className="section">
-        <div className="stage">
-          <SectionHeader
-            kicker="Đèn giao thông điểm đến"
-            title="Nóng, ấm, nguội."
-            dek="Push mạnh, push có điều kiện, hay né hoàn toàn cho T7."
-          />
-          <div style={{ borderTop: '2px solid var(--ink)' }}>
-            {m.destinations.map((d, i) => (
-              <div key={i} style={{
-                display: 'grid',
-                gridTemplateColumns: '40px 1fr 140px 1.5fr',
-                gap: 24, padding: '20px 0',
-                borderBottom: '1px solid var(--rule)',
-                alignItems: 'baseline',
-              }}>
-                <div><Dot status={d.status} /></div>
-                <div>
-                  <h4 className="h-display" style={{ fontSize: 22, marginBottom: 4 }}>{d.region}</h4>
-                </div>
-                <div className="label" style={{
-                  color: d.status === 'green' ? 'var(--ok)' : d.status === 'yellow' ? 'var(--warn)' : 'var(--bad)'
-                }}>{d.label}</div>
-                <div className="body" style={{ fontSize: 15 }}>{d.note}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Featured tours */}
       <section className="section" style={{ background: 'var(--paper-2)' }}>
         <div className="stage">
@@ -485,12 +455,47 @@ function MonthDetail({ id, go }) {
         </div>
       </section>
 
+      {/* Destinations */}
+      <section className="section">
+        <div className="stage">
+          <SectionHeader
+            kicker="Điểm đến tháng này"
+            title={`Đi đâu ${m.short}?`}
+            dek="Xếp theo mức độ thuận lợi — từ điểm đang vào mùa đến nơi nên tránh."
+          />
+          <div style={{ borderTop: '2px solid var(--ink)' }}>
+            {[...m.destinations].sort((a, b) => {
+              const order = { green: 0, yellow: 1, red: 2 };
+              return order[a.status] - order[b.status] || (b.visitors || 0) - (a.visitors || 0);
+            }).map((d, i) => (
+              <div key={i} style={{
+                display: 'grid',
+                gridTemplateColumns: '40px 1fr 140px 1.5fr',
+                gap: 24, padding: '20px 0',
+                borderBottom: '1px solid var(--rule)',
+                alignItems: 'baseline',
+              }}>
+                <div><Dot status={d.status} /></div>
+                <div>
+                  <h4 className="h-display" style={{ fontSize: 22, marginBottom: 4 }}>{d.region}</h4>
+                  {d.visitors && <div className="label" style={{ color: 'var(--ink-4)', fontSize: 11, marginTop: 4 }}>~{d.visitors}k khách/tháng</div>}
+                </div>
+                <div className="label" style={{
+                  color: d.status === 'green' ? 'var(--ok)' : d.status === 'yellow' ? 'var(--warn)' : 'var(--bad)'
+                }}>{d.label}</div>
+                <div className="body" style={{ fontSize: 15 }}>{d.note}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Markets */}
       <section className="section">
         <div className="stage">
           <SectionHeader
-            kicker="Thị trường dẫn dắt tháng"
-            title={m.id === 7 ? 'Năm quốc tịch, năm câu chuyện hè.' : 'Thị trường vào mùa tháng này.'}
+            kicker="Khách từ đâu tháng này?"
+            title={m.id === 7 ? 'Năm quốc tịch, năm câu chuyện hè.' : 'Thị trường đang vào mùa.'}
           />
           <div className="grid-12">
             {markets.map((mk, i) => (
@@ -524,31 +529,56 @@ function MonthDetail({ id, go }) {
         <div className="stage">
           <div className="grid-2" style={{ gridTemplateColumns: '1fr 1.5fr', gap: 64 }}>
             <div>
-              <div className="h-kicker">Lượt booking theo sàn · {m.short}</div>
+              <div className="h-kicker">Booking theo sàn · {m.short}</div>
               <h3 className="h-display">Sàn nào đang gặt?</h3>
               <p className="body" style={{ fontSize: 15, marginTop: 20, color: 'var(--ink-3)' }}>
                 Ước tính lượt booking theo sàn — xếp từ cao xuống thấp. Nhấp vào sàn có mũi tên để xem chi tiết.
               </p>
+              <button
+                onClick={() => setShowTopOta(!showTopOta)}
+                style={{
+                  marginTop: 24,
+                  fontFamily: 'var(--mono)',
+                  fontSize: 11,
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  background: 'none',
+                  border: '1px solid var(--rule)',
+                  padding: '8px 16px',
+                  cursor: 'pointer',
+                  color: 'var(--ink-2)',
+                }}
+              >
+                {showTopOta ? `Xem tất cả ${otaBookings.length} sàn ↓` : 'Thu gọn ↑'}
+              </button>
             </div>
             <div>
               {(() => {
                 const maxEst = Math.max(...otaBookings.map(b => b.est));
-                return otaBookings.map((b) => {
-                  const ota = D.otas.find((o) => o.id === b.id);
-                  const clickable = !!ota;
-                  return (
-                    <div key={b.id} className="bar-row" style={{ cursor: clickable ? 'pointer' : 'default' }}
-                      onClick={() => clickable && go({ tab: 'otas', id: b.id })}>
-                      <span className="bar-row-label">
-                        {b.name}
-                        {clickable && <span style={{ color: 'var(--ink-4)', fontSize: 11 }}> ↗</span>}
-                        {b.note && <span style={{ color: 'var(--ink-4)', fontSize: 11, marginLeft: 6 }}>· {b.note}</span>}
-                      </span>
-                      <div className="bar accent"><span style={{ width: (b.est / maxEst * 100) + '%' }} /></div>
-                      <span className="bar-row-val">~{(b.est / 1000).toFixed(1)}k</span>
+                const displayed = showTopOta ? otaBookings.slice(0, 5) : otaBookings;
+                return (<>
+                  {displayed.map((b) => {
+                    const ota = D.otas.find((o) => o.id === b.id);
+                    const clickable = !!ota;
+                    return (
+                      <div key={b.id} className="bar-row" style={{ cursor: clickable ? 'pointer' : 'default' }}
+                        onClick={() => clickable && go({ tab: 'otas', id: b.id })}>
+                        <span className="bar-row-label">
+                          {b.name}
+                          {clickable && <span style={{ color: 'var(--ink-4)', fontSize: 11 }}> ↗</span>}
+                          {b.note && <span style={{ color: 'var(--ink-4)', fontSize: 11, marginLeft: 6 }}>· {b.note}</span>}
+                        </span>
+                        <div className="bar accent"><span style={{ width: (b.est / maxEst * 100) + '%' }} /></div>
+                        <span className="bar-row-val">~{(b.est / 1000).toFixed(1)}k</span>
+                      </div>
+                    );
+                  })}
+                  {showTopOta && otaBookings.length > 5 && (
+                    <div style={{ marginTop: 8, color: 'var(--ink-4)', fontSize: 12, fontFamily: 'var(--mono)', paddingLeft: 4 }}>
+                      + {otaBookings.length - 5} sàn khác...
                     </div>
-                  );
-                });
+                  )}
+                </>);
               })()}
             </div>
           </div>
@@ -584,7 +614,7 @@ function MonthDetail({ id, go }) {
       {/* Editorial insight block */}
       <section className="section">
         <div className="stage">
-          <div className="h-kicker">Góc biên tập</div>
+          <div className="h-kicker">Nhận định thị trường</div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32 }}>
             {m.insight ? <>
               <div className="callout">
