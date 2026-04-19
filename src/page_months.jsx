@@ -415,7 +415,7 @@ function MonthDetail({ id, go }) {
                     <h4 className="h-display" style={{ fontSize: 20, margin: 0 }}>{t.name}</h4>
                     {t.trending && (
                       <span style={{ fontSize: 10, fontFamily: 'var(--mono)', letterSpacing: '0.1em', textTransform: 'uppercase', background: 'var(--accent)', color: '#fff', padding: '2px 8px', borderRadius: 2, whiteSpace: 'nowrap' }}>
-                        ↑ trending
+                        ↑ trending{t.trendingNote ? ` · ${t.trendingNote}` : ''}
                       </span>
                     )}
                   </div>

@@ -358,7 +358,7 @@ export const halongHub = {
 
 const tours = [
   { id: 'ha-giang-jeep',
-    trending: true,
+    trending: true, trendingNote: 'tăng nhanh 2023–2025',
     name: 'Hà Giang Jeep 4N3Đ',
     region: 'Bắc', province: 'Hà Giang',
     price: '$180–$280', priceLow: 180, priceHigh: 280,
@@ -477,7 +477,7 @@ const tours = [
     rating: 4.6, reviews: 820,
   },
   {
-    id: 'mekong-delta', trending: true, name: 'Mekong Delta Day Trip',
+    id: 'mekong-delta', name: 'Mekong Delta Day Trip',
     region: 'Nam', province: 'Tiền Giang',
     price: '$40–$70', priceLow: 40, priceHigh: 70,
     desc: 'My Tho & Ben Tre 1 ngày — chợ nổi, vườn dừa, thuyền nhỏ. Viator: 7,485 reviews. Klook: 20,000+ bookings đã xác nhận.',
@@ -516,7 +516,7 @@ const tours = [
     rating: 4.6, reviews: 920,
   },
   {
-    id: 'ninh-binh', trending: true, name: 'Ninh Bình Tam Cốc',
+    id: 'ninh-binh', trending: true, trendingNote: 'tăng nhanh 2023–2025', name: 'Ninh Bình Tam Cốc',
     region: 'Bắc', province: 'Ninh Bình',
     price: '$30–$65', priceLow: 30, priceHigh: 65,
     desc: 'Hoa Lư + Tràng An + hang Múa. Viator: 8,425 reviews — top 3 VN listing. Full-day từ Hà Nội.',
@@ -554,7 +554,7 @@ const tours = [
     rating: 4.8, reviews: 1100,
   },
   {
-    id: 'saigon-vespa', trending: true, name: 'Saigon Vespa Night',
+    id: 'saigon-vespa', name: 'Saigon Vespa Night',
     region: 'Nam', province: 'HCMC',
     price: '$40–$65', priceLow: 40, priceHigh: 65,
     desc: 'Street food 4h trên Vespa, Old Quarter HCMC đêm. XO Tours: 7,520 TripAdvisor reviews. Viator per listing: 916 reviews.',
