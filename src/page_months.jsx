@@ -655,7 +655,10 @@ function MonthDetail({ id, go }) {
                     );
                   })}
                   {showTopOta && otaBookings.length > 5 && (
-                    <div style={{ marginTop: 8, color: 'var(--ink-4)', fontSize: 12, fontFamily: 'var(--mono)', paddingLeft: 4 }}>
+                    <div
+                      onClick={() => setShowTopOta(false)}
+                      style={{ marginTop: 8, color: 'var(--ink-4)', fontSize: 12, fontFamily: 'var(--mono)', paddingLeft: 4, cursor: 'pointer' }}
+                    >
                       + {otaBookings.length - 5} sàn khác...
                     </div>
                   )}
