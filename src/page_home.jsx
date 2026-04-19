@@ -3,9 +3,19 @@ import React from 'react';
 import DATA from './data.js';
 import { MonthChip, TourChip, MarketChip, OtaChip, XLink, SectionHeader } from './shell.jsx';
 
+function parseBookings(str) {
+  return parseInt((str || '').replace(/[^0-9]/g, '')) || 0;
+}
+
 function Home({ go }) {
   const D = DATA;
-  const curMonth = D.months.find((m) => m.id === 7);
+  const months = D.months;
+  const totalYear = months.reduce((acc, m) => acc + parseBookings(m.summary?.totalBookings), 0);
+  const peakMonth = months.reduce((a, b) =>
+    parseBookings(a.summary?.totalBookings) >= parseBookings(b.summary?.totalBookings) ? a : b
+  );
+  const topOta = D.otas.reduce((a, b) => (a.share7 >= b.share7 ? a : b));
+  const topMarket = D.markets.find(m => m.hasDetail) || D.markets[0];
 
   return (
     <div className="page-anim">
@@ -13,44 +23,44 @@ function Home({ go }) {
       <section className="section" style={{ paddingBlock: '80px 64px' }}>
         <div className="stage">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 32 }}>
-            <span className="folio">Số 07 · Tháng 7, 2026</span>
+            <span className="folio">Ấn bản 2026 · 12 tháng đầy đủ</span>
             <span className="folio">Phát hành nội bộ · v1.0</span>
           </div>
           <div className="h-kicker">Báo cáo thị trường khách quốc tế đến Việt Nam</div>
           <h1 className="h-display" style={{ fontSize: 96, lineHeight: 0.98, letterSpacing: '-0.03em', marginBottom: 24 }}>
-            Mùa <em style={{ color: 'var(--accent)', fontStyle: 'italic', fontWeight: 300 }}>đỉnh</em>,<br />
-            nhưng không đều.
+            Mười hai tháng,<br />
+            <em style={{ color: 'var(--accent)', fontStyle: 'italic', fontWeight: 300 }}>một thị trường.</em>
           </h1>
           <p className="dek" style={{ fontSize: 24, maxWidth: 760 }}>
-            Tháng 7 là thời điểm duy nhất trong năm trường học Tây + Á đều nghỉ hè cùng lúc.
-            Miền Trung khô đẹp nhất năm, Hạ Long cần cảnh báo bão, và các sàn OTA vào mùa gặt khách.
+            Dữ liệu booking inbound Việt Nam theo từng tháng — điểm đến, tour, thị trường nguồn, sàn OTA.
+            Đọc để biết <em>khi nào</em> bán cái gì, cho ai, qua đâu.
           </p>
         </div>
       </section>
 
-      {/* Quick stats — 4 big numbers */}
+      {/* Quick stats — 4 big numbers từ data */}
       <section className="section thin" style={{ paddingBlock: 32, background: 'var(--paper-2)' }}>
         <div className="stage">
           <div className="grid-4">
             <div className="stat-cell">
-              <div className="label">Tổng lượt khách T7</div>
-              <div className="bigtext num">1.48M</div>
-              <div className="note">+18.4% so với T7/2025 · peak mùa</div>
+              <div className="label">Tổng booking ước tính / năm</div>
+              <div className="bigtext num">~{Math.round(totalYear / 1000)}K</div>
+              <div className="note">Ấn bản 2026 · {months.filter(m => m.hasData).length}/12 tháng có data</div>
+            </div>
+            <div className="stat-cell">
+              <div className="label">Tháng cao điểm</div>
+              <div className="bigtext">{peakMonth.short}</div>
+              <div className="note">{peakMonth.name} · ~{Math.round(parseBookings(peakMonth.summary?.totalBookings) / 1000)}K booking</div>
             </div>
             <div className="stat-cell">
               <div className="label">Thị trường dẫn đầu</div>
-              <div className="bigtext">🇺🇸 Mỹ</div>
-              <div className="note">~620K lượt/năm · hè Bắc Mỹ</div>
-            </div>
-            <div className="stat-cell">
-              <div className="label">Điểm tăng trưởng nóng</div>
-              <div className="bigtext" style={{ fontSize: 42 }}>Hội An</div>
-              <div className="note">+31% bookings · Lantern Festival 25/7</div>
+              <div className="bigtext" style={{ fontSize: 42 }}>{topMarket.flag} {topMarket.name}</div>
+              <div className="note">{topMarket.budget} · {topMarket.leadTime}</div>
             </div>
             <div className="stat-cell">
               <div className="label">Sàn OTA chủ lực</div>
-              <div className="bigtext">Viator</div>
-              <div className="note">40% thị phần · $25 commission</div>
+              <div className="bigtext">{topOta.name}</div>
+              <div className="note">{topOta.share7}% thị phần T7 · {topOta.commission}% commission</div>
             </div>
           </div>
         </div>
@@ -69,11 +79,11 @@ function Home({ go }) {
               num="01"
               title="Tháng"
               sub="12 tháng trong năm, theo mùa vụ khách"
-              body={<>Mỗi tháng có một tính cách riêng. Tháng 7 là tháng duy nhất trường học Tây + Á nghỉ hè cùng lúc. Tháng 2 là Tết — khách phương Tây tránh, châu Á về nhà. Đọc tháng để hiểu <em>khi nào</em> bán cái gì.</>}
-              cta="Đi tới tháng hiện tại"
-              ctaSub={curMonth.name + ' · dữ liệu đầy đủ'}
-              onClick={() => go({ tab: 'months', id: 7 })}
-              preview={<MonthPreview />}
+              body={<>Mỗi tháng có một tính cách riêng — thị trường khác, tour khác, sàn khác. T1–T3 là Tết + Xmas tail. T7–T8 là hè Tây. T10–T11 là harvest Bắc VN. Đọc tháng để hiểu <em>khi nào</em> bán cái gì.</>}
+              cta="Xem lịch 12 tháng"
+              ctaSub={`${months.filter(m => m.hasData).length} tháng có dữ liệu đầy đủ`}
+              onClick={() => go({ tab: 'months' })}
+              preview={<MonthPreview months={months} />}
             />
             <TabIntro
               num="02"
@@ -81,27 +91,27 @@ function Home({ go }) {
               sub={D.tours.length + ' tour chính — theo vùng, giá, mùa'}
               body={<>Từ Hà Giang Jeep 4 ngày đến street food Hà Nội 3 giờ. Mỗi tour có thị trường riêng, sàn riêng, tháng cao điểm riêng. Đọc tour để hiểu <em>bán cái gì</em> cho ai.</>}
               cta="Xem danh mục tour"
-              ctaSub="6 tour có dữ liệu đầy đủ T7"
+              ctaSub={`${D.tours.filter(t => !t.placeholder).length} tour dữ liệu đầy đủ`}
               onClick={() => go({ tab: 'tours' })}
               preview={<TourPreview />}
             />
             <TabIntro
               num="03"
               title="Khách"
-              sub={D.markets.length + ' thị trường nguồn, 5 có dữ liệu T7'}
+              sub={D.markets.length + ' thị trường nguồn'}
               body={<>Chân dung khách Mỹ, Úc, Ấn, Phi, Anh — ngân sách, lead time, tour ưa chuộng, sàn book. Đọc khách để hiểu <em>ai đang đến</em>, vì sao, và họ muốn gì.</>}
               cta="Xem chân dung khách"
-              ctaSub="🇺🇸 🇦🇺 🇮🇳 🇵🇭 🇬🇧"
+              ctaSub={D.markets.filter(m => m.hasDetail).map(m => m.flag).join(' ')}
               onClick={() => go({ tab: 'markets' })}
               preview={<MarketPreview />}
             />
             <TabIntro
               num="04"
               title="Sàn OTA"
-              sub="5 sàn phân phối chính"
+              sub={D.otas.length + ' sàn phân phối chính'}
               body={<>Viator, GetYourGuide, Klook, MakeMyTrip, Direct. Mỗi sàn mạnh một khu vực, một loại tour, một mức commission. Đọc sàn để hiểu <em>đưa lên đâu</em> và với giá nào.</>}
               cta="Xem bản đồ OTA"
-              ctaSub="Viator 40% · GYG 25% · Klook 20%"
+              ctaSub={D.otas.map(o => `${o.name} ${o.share7}%`).slice(0,3).join(' · ')}
               onClick={() => go({ tab: 'otas' })}
               preview={<OtaPreview />}
             />
@@ -200,17 +210,23 @@ function TabIntro({ num, title, sub, body, cta, ctaSub, onClick, preview }) {
   );
 }
 
-function MonthPreview() {
+function MonthPreview({ months }) {
+  const max = Math.max(...months.map(m => parseBookings(m.summary?.totalBookings)));
   return (
     <div className="month-strip">
-      {DATA.months.map((m) => (
-        <div
-          key={m.id}
-          className={'month-strip-cell ' + (m.id === 7 ? 'peak cur' : (m.id === 10 || m.id === 11 ? 'shoulder' : ''))}
-        >
-          <div style={{ fontSize: 13, fontWeight: 500 }}>{m.short}</div>
-        </div>
-      ))}
+      {months.map((m) => {
+        const val = parseBookings(m.summary?.totalBookings);
+        const isPeak = val === max;
+        const isHigh = val >= max * 0.75;
+        return (
+          <div
+            key={m.id}
+            className={'month-strip-cell ' + (isPeak ? 'peak cur' : isHigh ? 'shoulder' : '')}
+          >
+            <div style={{ fontSize: 13, fontWeight: isPeak ? 600 : 500 }}>{m.short}</div>
+          </div>
+        );
+      })}
     </div>
   );
 }
