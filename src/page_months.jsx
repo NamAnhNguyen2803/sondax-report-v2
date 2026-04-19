@@ -491,30 +491,80 @@ function MonthDetail({ id, go }) {
             title={`Đi đâu ${m.short}?`}
             dek="Xếp theo mức độ thuận lợi — từ điểm đang vào mùa đến nơi nên tránh."
           />
-          <div style={{ borderTop: '2px solid var(--ink)' }}>
-            {[...m.destinations].sort((a, b) => {
-              const order = { green: 0, yellow: 1, red: 2 };
-              return order[a.status] - order[b.status] || (b.visitors || 0) - (a.visitors || 0);
-            }).map((d, i) => (
-              <div key={i} style={{
-                display: 'grid',
-                gridTemplateColumns: '40px 1fr 140px 1.5fr',
-                gap: 24, padding: '20px 0',
-                borderBottom: '1px solid var(--rule)',
-                alignItems: 'baseline',
-              }}>
-                <div><Dot status={d.status} /></div>
-                <div>
-                  <h4 className="h-display" style={{ fontSize: 22, marginBottom: 4 }}>{d.region}</h4>
-                  {d.visitors && <div className="label" style={{ color: 'var(--ink-4)', fontSize: 11, marginTop: 4 }}>~{d.visitors}k khách/tháng</div>}
-                </div>
-                <div className="label" style={{
-                  color: d.status === 'green' ? 'var(--ok)' : d.status === 'yellow' ? 'var(--warn)' : 'var(--bad)'
-                }}>{d.label}</div>
-                <div className="body" style={{ fontSize: 15 }}>{d.note}</div>
+          {(() => {
+            // Province → destination region key (partial match against d.region)
+            const provinceRegion = {
+              'Hà Giang': 'Sapa / Hà Giang',
+              'Lào Cai':  'Sapa / Hà Giang',
+              'Thanh Hóa':'Sapa / Hà Giang',
+              'Hội An':   'Đà Nẵng / Hội An / Nha Trang',
+              'Đà Nẵng':  'Đà Nẵng / Hội An / Nha Trang',
+              'Khánh Hòa':'Đà Nẵng / Hội An / Nha Trang',
+              'Huế':      'Đà Nẵng / Hội An / Nha Trang',
+              'Bình Định':'Đà Nẵng / Hội An / Nha Trang',
+              'HCMC':     'HCMC / Đà Lạt / Mekong',
+              'Tiền Giang':'HCMC / Đà Lạt / Mekong',
+              'Lâm Đồng': 'HCMC / Đà Lạt / Mekong',
+              'BR-VT':    'HCMC / Đà Lạt / Mekong',
+              'Hà Nội':   'Hà Nội',
+              'Ninh Bình':'Hà Nội',
+              'Kiên Giang':'Phú Quốc',
+              'Hạ Long':  'Hạ Long Bay',
+              'Hải Phòng':'Hạ Long Bay',
+              'Quảng Ninh':'Hạ Long Bay',
+            };
+            // For each destination region, find tours (from ALL tours, not just featuredTours) whose province maps here
+            const toursForRegion = (region) =>
+              D.tours.filter(t => !t.placeholder && provinceRegion[t.province] === region && t.bookings?.[m.id]);
+
+            return (
+              <div style={{ borderTop: '2px solid var(--ink)' }}>
+                {[...m.destinations].sort((a, b) => {
+                  const order = { green: 0, yellow: 1, red: 2 };
+                  return order[a.status] - order[b.status] || (b.visitors || 0) - (a.visitors || 0);
+                }).map((d, i) => {
+                  const regionTours = toursForRegion(d.region);
+                  return (
+                    <div key={i} style={{
+                      display: 'grid',
+                      gridTemplateColumns: '40px 1fr 140px 1.5fr',
+                      gap: 24, padding: '20px 0',
+                      borderBottom: '1px solid var(--rule)',
+                      alignItems: 'start',
+                    }}>
+                      <div style={{ paddingTop: 4 }}><Dot status={d.status} /></div>
+                      <div>
+                        <h4 className="h-display" style={{ fontSize: 22, marginBottom: 4 }}>{d.region}</h4>
+                        {d.visitors && <div className="label" style={{ color: 'var(--ink-4)', fontSize: 11, marginTop: 4 }}>~{d.visitors}k khách/tháng</div>}
+                        {regionTours.length > 0 && (
+                          <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 6 }}>
+                            {regionTours.map(t => {
+                              const bk = t.bookings[m.id];
+                              return (
+                                <div key={t.id}
+                                  onClick={() => go({ tab: 'tours', id: t.id })}
+                                  style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
+                                  <span style={{ fontFamily: 'var(--serif)', fontSize: 13, color: 'var(--ink-2)' }}>{t.name}</span>
+                                  <span style={{ fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--accent)', letterSpacing: '0.05em' }}>
+                                    ~{bk >= 1000 ? (bk / 1000).toFixed(1) + 'k' : bk} booking
+                                  </span>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
+                      <div className="label" style={{
+                        color: d.status === 'green' ? 'var(--ok)' : d.status === 'yellow' ? 'var(--warn)' : 'var(--bad)',
+                        paddingTop: 4,
+                      }}>{d.label}</div>
+                      <div className="body" style={{ fontSize: 15 }}>{d.note}</div>
+                    </div>
+                  );
+                })}
               </div>
-            ))}
-          </div>
+            );
+          })()}
         </div>
       </section>
 
