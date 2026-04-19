@@ -475,7 +475,10 @@ function MonthDetail({ id, go }) {
               );
             })}
             {!showAllTours && tours.length > 3 && (
-              <div style={{ padding: '16px 0', color: 'var(--ink-4)', fontSize: 12, fontFamily: 'var(--mono)', letterSpacing: '0.08em' }}>
+              <div
+                onClick={() => setShowAllTours(true)}
+                style={{ padding: '16px 0', color: 'var(--ink-4)', fontSize: 12, fontFamily: 'var(--mono)', letterSpacing: '0.08em', cursor: 'pointer' }}
+              >
                 + {tours.length - 3} tour khác...
               </div>
             )}
