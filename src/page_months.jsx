@@ -228,6 +228,7 @@ function MonthDetail({ id, go }) {
   }
 
   const [showTopOta, setShowTopOta] = React.useState(true);
+  const [showAllTours, setShowAllTours] = React.useState(false);
   const tours = m.featuredTours.map((id) => D.tours.find((t) => t.id === id)).filter(Boolean);
   const markets = m.featuredMarkets.map((id) => D.markets.find((t) => t.id === id)).filter(Boolean);
   const otaBookings = m.otaBookings || [];
@@ -372,13 +373,28 @@ function MonthDetail({ id, go }) {
       {/* Featured tours */}
       <section className="section" style={{ background: 'var(--paper-2)' }}>
         <div className="stage">
-          <SectionHeader
-            kicker={`Tour đang nóng · ${tours.length} tour`}
-            title="Đáng đẩy trong tháng."
-            dek="Mỗi tour đến từ một thị trường khác, với một lý do riêng tháng này."
-          />
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 32 }}>
+            <div>
+              <div className="h-kicker">{`Tour đang nóng · ${tours.length} tour`}</div>
+              <h3 className="h-display" style={{ marginBottom: 8 }}>Đáng đẩy trong tháng.</h3>
+              <p className="dek" style={{ fontSize: 16, margin: 0 }}>Mỗi tour đến từ một thị trường khác, với một lý do riêng tháng này.</p>
+            </div>
+            {tours.length > 3 && (
+              <button
+                onClick={() => setShowAllTours(!showAllTours)}
+                style={{
+                  fontFamily: 'var(--mono)', fontSize: 11, letterSpacing: '0.1em',
+                  textTransform: 'uppercase', background: 'none',
+                  border: '1px solid var(--rule)', padding: '8px 16px',
+                  cursor: 'pointer', color: 'var(--ink-2)', whiteSpace: 'nowrap', flexShrink: 0, marginLeft: 32,
+                }}
+              >
+                {showAllTours ? 'Thu gọn ↑' : `Xem tất cả ${tours.length} tour ↓`}
+              </button>
+            )}
+          </div>
           <div style={{ borderTop: '2px solid var(--ink)' }}>
-            {tours.map((t) => {
+            {(showAllTours ? tours : tours.slice(0, 3)).map((t) => {
               const booking = t.bookings && t.bookings[m.id];
               const peakBooking = t.bookings && Math.max(...Object.values(t.bookings));
               const pct = booking && peakBooking ? Math.round(booking / peakBooking * 100) : null;
@@ -451,6 +467,11 @@ function MonthDetail({ id, go }) {
               </div>
               );
             })}
+            {!showAllTours && tours.length > 3 && (
+              <div style={{ padding: '16px 0', color: 'var(--ink-4)', fontSize: 12, fontFamily: 'var(--mono)', letterSpacing: '0.08em' }}>
+                + {tours.length - 3} tour khác...
+              </div>
+            )}
           </div>
         </div>
       </section>

@@ -7,7 +7,7 @@ const months = [
     phase: { mode: 'execute', label: 'Execute tháng này', sub: 'Khách đã book từ Oct–Nov. Tập trung delivery + review. Đồng thời: Book cho T3 (spring break) đang mở.' },
     headline: 'Mùa đỉnh nối tiếp — Giáng Sinh vừa qua nhưng khách Mỹ, Úc, Anh vẫn đang trên đường.',
     sub: 'Thời tiết hoàn hảo toàn quốc — đây là tháng để thu review và fill slot; Tết 2025 rơi vào 29/1 (tuần cuối tháng) nên phải brief khách sớm về vendor schedule.',
-    featuredTours: ['india-halong', 'hanoi-food-night', 'hoi-an-wellness', 'bana-hills'],
+    featuredTours: ['india-halong', 'hanoi-food-night', 'hoi-an-wellness', 'ninh-binh', 'bana-hills', 'saigon-vespa'],
     featuredMarkets: ['us', 'au', 'uk', 'ca'],
     destinations: [
       { region: 'Đà Nẵng / Hội An / Nha Trang', status: 'green', label: 'Đỉnh mùa khô', note: '20–25°C, ít mưa (~50mm/tháng) — tốt nhất trong năm', visitors: 250 },
@@ -47,7 +47,7 @@ const months = [
     phase: { mode: 'execute', label: 'Post-Tết recovery + Execute', sub: 'Tết 2025 đã qua 29/1. Ops phục hồi từ ~5/2. UK half-term 17–21/2 là spike chính. Đồng thời: book T4–T5.' },
     headline: 'UK half-term kéo spike ngắn — Tết đã qua từ 29/1, tháng 2 là tháng phục hồi ops và push premium cruise.',
     sub: 'Post-Tết recovery từ ~5/2: vendor, guide, restaurant hoạt động trở lại bình thường. Thời tiết đỉnh miền Bắc và Trung, cruise season vẫn mạnh — cơ hội sell premium cho thị trường Anh và Úc đang cao điểm.',
-    featuredTours: ['hoi-an-wellness', 'india-halong', 'hanoi-food-night'],
+    featuredTours: ['india-halong', 'hanoi-food-night', 'hoi-an-wellness', 'ninh-binh', 'bana-hills', 'mekong-delta'],
     featuredMarkets: ['uk', 'au', 'us', 'nz'],
     destinations: [
       { region: 'Đà Nẵng / Hội An / Nha Trang', status: 'green', label: 'Tốt nhất năm', note: '21–25°C, dry — đỉnh điểm mùa du lịch Miền Trung', visitors: 220 },
@@ -87,7 +87,7 @@ const months = [
     phase: { mode: 'book', label: 'Book tháng này + Execute spring break', sub: 'US spring break đang travel. Song song: đây là cửa sổ book T6–T7 — optimize Viator listing ngay để capture summer search.' },
     headline: 'Mỹ spring break kéo gia đình — thời tiết Miền Trung vẫn còn window tốt trước khi chuyển mùa.',
     sub: 'Shoulder season nhưng volume từ US spring break và AU/NZ đủ để justify listing push — AU và NZ còn trong Term 1 tháng 3, autumn break bắt đầu đầu tháng 4.',
-    featuredTours: ['india-halong', 'ha-giang-jeep', 'hoi-an-wellness', 'hanoi-food-night', 'mekong-delta'],
+    featuredTours: ['india-halong', 'hanoi-food-night', 'hoi-an-wellness', 'ninh-binh', 'ha-giang-jeep', 'mekong-delta', 'saigon-vespa'],
     featuredMarkets: ['us', 'au', 'nz'],
     destinations: [
       { region: 'Đà Nẵng / Hội An / Nha Trang', status: 'green', label: 'Tốt — dry tail', note: '24–27°C, cuối mùa khô, vẫn đẹp', visitors: 210 },
@@ -127,7 +127,7 @@ const months = [
     phase: { mode: 'book', label: 'Book T5–T7 + Execute shoulder', sub: 'AU/NZ autumn break đang travel. Đây là window book guide Ha Giang cho T7 — slot tốt sẽ hết trước T6.' },
     headline: 'AU/NZ autumn break đổ khách — Easter Anh kéo gia đình ra và Philippines summer mở; tháng 4 có nhiều hơn những gì vẻ ngoài.',
     sub: 'Easter UK school holiday (7–22/4) + ANZAC Day 25/4 + Úc/NZ autumn break đầu tháng — shoulder có thật nhưng demand đến từ nhiều trigger cùng lúc, cần channel đúng.',
-    featuredTours: ['ha-giang-jeep', 'bana-hills', 'hoi-an-wellness', 'phu-quoc-snorkel'],
+    featuredTours: ['ha-giang-jeep', 'ninh-binh', 'hoi-an-wellness', 'bana-hills', 'phu-quoc-snorkel', 'sapa-trek'],
     featuredMarkets: ['uk', 'au', 'nz', 'ph'],
     destinations: [
       { region: 'Đà Nẵng / Hội An / Nha Trang', status: 'yellow', label: 'Chuyển mùa', note: 'Mưa nhẹ bắt đầu cuối tháng, vẫn đi được đầu T4', visitors: 150 },
@@ -167,7 +167,7 @@ const months = [
     phase: { mode: 'book', label: 'Book T7–T8 + Execute Asia peak', sub: 'India summer và PH peak đang travel. Song song: đây là window book slot T7 — Viator listing cho peak hè phải sẵn từ tháng 5.' },
     headline: 'Ấn Độ mùa hè bắt đầu, Đà Nẵng vào mùa khô đỉnh — hai cơ hội lớn mà phần lớn operator VN bỏ qua.',
     sub: 'DIFF khai mạc đêm 31/5; Central Coast DRY season tốt nhất năm trong khi miền Bắc đã vào mưa — đây là messaging gap lớn nhất để khai thác.',
-    featuredTours: ['bana-hills', 'ha-giang-jeep', 'india-halong', 'hoi-an-wellness'],
+    featuredTours: ['india-halong', 'bana-hills', 'hoi-an-wellness', 'ha-giang-jeep', 'mekong-delta', 'dalat-canyon'],
     featuredMarkets: ['in', 'ph', 'sg', 'us'],
     destinations: [
       { region: 'Đà Nẵng / Hội An / Nha Trang', status: 'green', label: 'Đỉnh mùa khô', note: 'DRY SEASON bắt đầu May–Aug — ít mưa nhất trong năm, lợi thế vs Bắc', visitors: 190 },
@@ -207,7 +207,7 @@ const months = [
     phase: { mode: 'execute', label: 'Execute — Asian market peak', sub: 'Singapore, India, US cùng peak tháng 6. Focus: Klook listings live sẵn từ tháng 5. DIFF đang chạy mỗi Thứ Bảy.' },
     headline: 'Singapore June holiday peak — tháng mạnh nhất cho Asian markets trong cả năm.',
     sub: 'Ấn Độ vẫn cao, SG đỉnh điểm, Mỹ-Canada bắt đầu — Central Coast vẫn DRY trong khi cả miền Bắc vào mưa; Klook là sàn ưu tiên số 1 tháng này.',
-    featuredTours: ['ha-giang-jeep', 'bana-hills', 'india-halong', 'hoi-an-wellness', 'mekong-delta'],
+    featuredTours: ['ha-giang-jeep', 'bana-hills', 'india-halong', 'hoi-an-wellness', 'mekong-delta', 'sapa-trek'],
     featuredMarkets: ['sg', 'in', 'us', 'ca'],
     destinations: [
       { region: 'Đà Nẵng / Hội An / Nha Trang', status: 'green', label: 'Đỉnh mùa khô', note: 'DRY SEASON tiếp tục — tốt nhất năm cho beach + cultural', visitors: 200 },
@@ -247,7 +247,7 @@ const months = [
     phase: { mode: 'execute', label: 'Execute — peak hè đôi', sub: 'Khách đang travel. Focus: delivery, upsell on-trip, collect review. Listing optimization cho T7 đã phải xong từ T4.' },
     headline: 'Tháng collision — lịch nghỉ hè Tây và Á đổ vào Việt Nam cùng lúc, không tháng nào khác trong năm làm được điều này.',
     sub: 'Cơ hội lớn nhất năm nhưng miền Bắc mưa nặng và Hạ Long rủi ro bão — ai bán đúng điểm đến thắng lớn, ai bán sai mất review và mất khách.',
-    featuredTours: ['ha-giang-jeep', 'hanoi-food-night', 'mekong-delta', 'hoi-an-wellness', 'sapa-trek'],
+    featuredTours: ['ha-giang-jeep', 'hanoi-food-night', 'mekong-delta', 'hoi-an-wellness', 'sapa-trek', 'saigon-vespa', 'bana-hills'],
     featuredMarkets: ['us', 'au', 'ca', 'uk', 'ie'],
     destinations: [
       { region: 'Đà Nẵng / Hội An / Nha Trang', status: 'green', label: 'Lợi thế cạnh tranh', note: 'Vẫn DRY khi toàn miền Bắc mưa — đây là secret cần bán', visitors: 210 },
@@ -287,7 +287,7 @@ const months = [
     phase: { mode: 'execute', label: 'Execute — UK/US late summer', sub: 'England peak hè, US late summer. Focus: Mekong + Miền Trung delivery. SG Term 3 break bắt đầu 30/8 — Klook listing phải live sẵn.' },
     headline: 'Anh England vào peak, Mỹ late summer — Mekong lên nước cao nhất, competitive advantage thật sự cho ai biết cách kể.',
     sub: 'Miền Bắc núi nguy hiểm nhất năm — dừng push Sapa/Hà Giang, chuyển toàn bộ budget sang Mekong và Miền Trung trước khi hết window khô.',
-    featuredTours: ['mekong-delta', 'hoi-an-wellness', 'hanoi-food-night', 'saigon-vespa'],
+    featuredTours: ['mekong-delta', 'hanoi-food-night', 'hoi-an-wellness', 'saigon-vespa', 'dalat-canyon', 'india-halong'],
     featuredMarkets: ['uk', 'us', 'ie', 'sg'],
     destinations: [
       { region: 'Đà Nẵng / Hội An / Nha Trang', status: 'green', label: 'Cuối mùa khô', note: 'Còn dry nhưng độ ẩm tăng cuối tháng — push mạnh đầu tháng 8', visitors: 180 },
@@ -327,7 +327,7 @@ const months = [
     phase: { mode: 'book', label: 'Execute SG break + Book T10–T11', sub: 'SG Term 3 break 30/8–14/9 đang travel. AU/NZ Term 3 break late Sep. Đây là window book Ha Giang cho T10 — sold out sớm.' },
     headline: 'Mùa vàng Sapa bắt đầu — Northern mountains đột ngột trở thành điểm đến hấp dẫn nhất sau 2 tháng mưa.',
     sub: 'SG Term 3 break bắt đầu 30/8 (không phải 5/9) và Úc/NZ Term 3 break late Sep — volume khiêm tốn nhưng Mu Cang Chai paragliding mid-Sep là packaging cơ hội hiếm có. Mid-Autumn Festival 2025 rơi vào 6/10 (T10), không phải tháng 9.',
-    featuredTours: ['ha-giang-jeep', 'sapa-trek', 'hanoi-food-night', 'mekong-delta'],
+    featuredTours: ['ha-giang-jeep', 'sapa-trek', 'hanoi-food-night', 'mekong-delta', 'ninh-binh'],
     featuredMarkets: ['sg', 'au', 'nz'],
     destinations: [
       { region: 'Đà Nẵng / Hội An / Nha Trang', status: 'yellow', label: 'Cẩn thận', note: 'Mùa mưa bắt đầu Sep–Nov — risk bão tăng dần; dừng push beach', visitors: 80 },
@@ -367,7 +367,7 @@ const months = [
     phase: { mode: 'book', label: 'Book T12 + Execute harvest peak', sub: 'Ha Giang lúa vàng đỉnh + cruise season mở lại. Song song: T12 holiday window đang mở — khách Mỹ, Anh book Dec từ tháng 8–9. Audit listing ngay.' },
     headline: 'Harvest peak Hà Giang + Cruise season mở lại — Central Coast bão hoàn toàn, Mid-Autumn Festival 6/10 là event highlight.',
     sub: 'AU/NZ/UK half-term late Oct tạo volume vừa phải; lúa vàng Sapa và Mu Cang Chai là attraction lớn nhất năm cho photography traveler — book từ tháng 8 mới có slot.',
-    featuredTours: ['ha-giang-jeep', 'sapa-trek', 'india-halong', 'hanoi-food-night'],
+    featuredTours: ['ha-giang-jeep', 'hanoi-food-night', 'india-halong', 'sapa-trek', 'ninh-binh', 'hoi-an-wellness', 'bana-hills'],
     featuredMarkets: ['au', 'nz', 'in', 'uk'],
     destinations: [
       { region: 'Đà Nẵng / Hội An / Nha Trang', status: 'red', label: 'Tránh', note: 'Peak bão Oct–Nov — risk cao nhất năm; tắt paid promotion', visitors: 40 },
@@ -407,7 +407,7 @@ const months = [
     phase: { mode: 'execute', label: 'Execute — US Thanksgiving + cruise peak', sub: 'Thanksgiving 27/11 là booking surge US. Khách Âu đang travel dài ngày. Focus: premium experience + Viator listing rõ ràng cho Dec–Jan.' },
     headline: 'Mùa đỉnh đang đến — Thanksgiving Mỹ bật spike và cruise season vào guồng toàn lực.',
     sub: 'Thời tiết toàn quốc bắt đầu ổn định, khách Tây Phương book sớm cho Xmas — tháng của advance booking và listing refresh, không phải walk-in.',
-    featuredTours: ['india-halong', 'hanoi-food-night', 'hoi-an-wellness', 'sapa-trek'],
+    featuredTours: ['india-halong', 'hanoi-food-night', 'hoi-an-wellness', 'sapa-trek', 'mekong-delta', 'saigon-vespa', 'phu-quoc-snorkel'],
     featuredMarkets: ['us', 'in', 'sg', 'uk'],
     destinations: [
       { region: 'Đà Nẵng / Hội An / Nha Trang', status: 'yellow', label: 'Cẩn thận', note: 'Mưa đầu tháng (bão tail Oct–Nov), khô dần cuối Nov — push tour cuối tháng an toàn hơn', visitors: 90 },
@@ -447,7 +447,7 @@ const months = [
     phase: { mode: 'execute', label: 'Execute — holiday peak', sub: 'Khách Christmas/NY đang travel. Giá cao nhất năm. Focus: zero cancellation, review push, upsell add-on. Đồng thời: book T3 (spring break) mở từ giữa tháng.' },
     headline: 'Đỉnh tuyệt đối — Xmas/NY kéo mọi thị trường về VN cùng lúc, 3 tuần Dec 15–Jan 5 chiếm phần lớn doanh thu quý 4.',
     sub: 'Cruise season peak, Philippines Xmas, Úc summer — nếu đến tháng 12 bạn vẫn còn slot trống tuần 20–31/12, vấn đề là pricing, không phải demand.',
-    featuredTours: ['india-halong', 'hoi-an-wellness', 'phu-quoc-snorkel', 'saigon-vespa', 'hanoi-food-night'],
+    featuredTours: ['india-halong', 'hanoi-food-night', 'saigon-vespa', 'hoi-an-wellness', 'phu-quoc-snorkel', 'mekong-delta', 'ninh-binh'],
     featuredMarkets: ['us', 'ph', 'au', 'uk'],
     destinations: [
       { region: 'Phú Quốc / Nha Trang / Côn Đảo', status: 'green', label: 'Đỉnh mùa khô', note: 'Peak beach — nắng đẹp nhất, biển lặng; upsell premium resort', visitors: 170 },
