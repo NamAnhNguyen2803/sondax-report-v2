@@ -113,7 +113,7 @@ function ToursIndex({ go }) {
               <div className="label" style={{ marginBottom: 8, color: 'var(--accent)' }}>HÀ NỘI · 8 SẢN PHẨM</div>
               <h3 className="h-display" style={{ fontSize: 28, marginBottom: 10 }}>Hà Nội Hub</h3>
               <p className="body" style={{ fontSize: 14, color: 'var(--ink-2)', lineHeight: 1.5 }}>
-                $180M GMV · 8 sản phẩm tour · 4 food variants + 4 skeleton (cultural walking, egg coffee, Bát Tràng, water puppet). Top 3 đối thủ · OTA matrix · 7 trends.
+                **$765M–$1.02B tour-addressable** · $5.11B total tourism · 7.82M foreign (23.2%). 8 SKUs (food walking/motorbike/cultural/egg coffee/Bát Tràng). Gateway dominant #1 foreign intensity.
               </p>
               <div style={{ marginTop: 14, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                 {['Food Walking', 'Motorbike Food', 'Cultural Walk ↗', 'Egg Coffee ↗', 'Bát Tràng ↗'].map((v) => (
@@ -130,7 +130,7 @@ function ToursIndex({ go }) {
               <div className="label" style={{ marginBottom: 8, color: 'var(--accent)' }}>HẠ LONG · 6 BIẾN THỂ</div>
               <h3 className="h-display" style={{ fontSize: 28, marginBottom: 10 }}>Cruise Vịnh Hạ Long</h3>
               <p className="body" style={{ fontSize: 14, color: 'var(--ink-2)', lineHeight: 1.5 }}>
-                $580–680M · 6 biến thể cruise · Top 3 đối thủ · OTA × thị trường · 7 pain points · Design levers theo quốc tịch.
+                **$395M–$485M tour-addressable** · $2.19B total tourism Quảng Ninh · 4.5M foreign (21.1%). Cruise GMV $580–680M segment riêng · 6 biến thể · Lan Hạ 2 SKU mới.
               </p>
               <div style={{ marginTop: 14, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                 {['Day Cruise', 'Overnight 1N2D', 'Premium 2N3D', 'Lan Hạ ↑', 'Luxury', 'Seaplane ↑'].map((v) => (
@@ -147,7 +147,7 @@ function ToursIndex({ go }) {
               <div className="label" style={{ marginBottom: 8, color: 'var(--accent)' }}>HÀ GIANG · 8 SẢN PHẨM</div>
               <h3 className="h-display" style={{ fontSize: 28, marginBottom: 10 }}>Hà Giang Loop Hub</h3>
               <p className="body" style={{ fontSize: 14, color: 'var(--ink-2)', lineHeight: 1.5 }}>
-                ~$380M · 8 SKU (Loop easyrider/self-drive/Jeep · Buckwheat photo · Lô Lô homestay · Lũng Cú). Apr 2026 safety regulation reshapes competitive map. Premium tier tailwind.
+                **~$72M–$90M tour-addressable** · ~$360M total tourism · ~430K foreign (12%). 8 SKUs (Loop easyrider/self-drive/Jeep · Buckwheat · Lô Lô · Lũng Cú). Apr 2026 regulatory shock.
               </p>
               <div style={{ marginTop: 14, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                 {['Easyrider 3N4D', 'Self-Drive', 'Jeep ↑', 'Buckwheat ↑', 'Lô Lô ↑', 'Lũng Cú ↗'].map((v) => (
@@ -164,7 +164,7 @@ function ToursIndex({ go }) {
               <div className="label" style={{ marginBottom: 8, color: 'var(--accent)' }}>SA PA · 8 SẢN PHẨM</div>
               <h3 className="h-display" style={{ fontSize: 28, marginBottom: 10 }}>Sa Pa (Lào Cai) Hub</h3>
               <p className="body" style={{ fontSize: 14, color: 'var(--ink-2)', lineHeight: 1.5 }}>
-                ~$1.8B tỉnh · 8 SKU (Trek homestay flagship · Fansipan · Rice photo · Winter KR · Bac Ha). **KR +333% H1 2025** · Revenue premiumize +70%. Expressway 4-lane end-2026.
+                **$215M–$290M tour-addressable** · $1.80B total tourism Lào Cai · 1.46M foreign (14%). 8 SKUs (Trek/Fansipan/Rice photo/Winter KR/Bac Ha). **KR +333% H1 2025**.
               </p>
               <div style={{ marginTop: 14, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                 {['Trek 2N3D', 'Fansipan', 'Rice Photo ↑', 'Premium Ta Phin ↑', 'Winter KR ↑', 'Bac Ha'].map((v) => (
@@ -181,7 +181,7 @@ function ToursIndex({ go }) {
               <div className="label" style={{ marginBottom: 8, color: 'var(--accent)' }}>NINH BÌNH · 8 SẢN PHẨM</div>
               <h3 className="h-display" style={{ fontSize: 28, marginBottom: 10 }}>Ninh Bình Hub</h3>
               <p className="body" style={{ fontSize: 14, color: 'var(--ink-2)', lineHeight: 1.5 }}>
-                ~$400M · 8 SKU (Tràng An day flagship · 2N3D overnight ↑ · Aman luxury ↑ · Rice photo T5). Aloha 7,905 reviews 5★ moat. Admin merger 1/7/2025. **HSR KHÔNG đến NB near-term.**
+                **$85M–$125M tour-addressable** · $830M total tourism merged prov · 2.2M foreign (11%). 8 SKUs (Tràng An/2N3D ↑/Aman ↑). Merger 1/7/2025. Aloha 7,905 reviews moat.
               </p>
               <div style={{ marginTop: 14, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                 {['Tràng An 1D', 'Tam Cốc 1D', '2N3D ↑', 'Aman Luxury ↑', 'Rice T5 ↑', 'Cúc Phương'].map((v) => (

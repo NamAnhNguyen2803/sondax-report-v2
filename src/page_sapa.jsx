@@ -25,10 +25,10 @@ function SapaHubPage({ go }) {
           <div className="h-kicker">Lào Cai · Fansipan · Muong Hoa · H'mong/Dao/Giay · Portfolio 8 loại sản phẩm</div>
           <h1 className="h-display" style={{ fontSize: 80, lineHeight: 1, marginBottom: 24 }}>
             Thị trường<br />
-            <em style={{ color: 'var(--accent)', fontStyle: 'italic', fontWeight: 300 }}>~$1.8B.</em>
+            <em style={{ color: 'var(--accent)', fontStyle: 'italic', fontWeight: 300 }}>$215–290M.</em>
           </h1>
           <p className="dek" style={{ fontSize: 22, maxWidth: 780 }}>
-            Lào Cai 2025: 10.5M khách · $1.8B revenue (+31% YoY). Korean package bookings +333% H1 2025 — single largest source-market shift kể từ Fansipan cable car 2016. Revenue premiumize +70% vs visitors +31%.
+            Tour-addressable market (est 12-16% của $1.80B total tourism Lào Cai). 10.5M khách tỉnh · 1.46M foreign (13.9%) · Sa Pa ward ~55% của prov. Korean package bookings +333% H1 2025. Revenue premiumize +70% vs visitors +31%.
           </p>
 
           {/* Market stat bar */}

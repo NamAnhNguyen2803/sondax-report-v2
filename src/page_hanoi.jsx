@@ -176,7 +176,7 @@ function HanoiHubPage({ go }) {
             <em style={{ color: 'var(--accent)', fontStyle: 'italic', fontWeight: 300 }}>chỉ phở và food tour.</em>
           </h1>
           <p className="dek" style={{ fontSize: 22, maxWidth: 760 }}>
-            4.8M khách quốc tế/năm transit qua Hà Nội — nhưng operator hiện tại toàn food tour. Trang này: overview thị trường Hà Nội + 8 loại sản phẩm (bấm từng loại xem chi tiết).
+            **7.82M khách foreign/năm (+22.76% YoY · 23.2% intensity)** transit qua Hà Nội — gateway lớn nhất inbound VN. Total tourism $5.11B · tour-addressable $765M–$1.02B. Operator hiện tại tập trung food tour — 7 segment khác còn mở.
           </p>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 0, marginTop: 40, borderTop: '2px solid var(--ink)' }}>

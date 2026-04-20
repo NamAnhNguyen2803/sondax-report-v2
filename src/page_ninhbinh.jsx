@@ -25,10 +25,10 @@ function NinhbinhHubPage({ go }) {
           <div className="h-kicker">Tràng An UNESCO · Tam Cốc · Bái Đính · Hoa Lư · Portfolio 8 loại sản phẩm</div>
           <h1 className="h-display" style={{ fontSize: 80, lineHeight: 1, marginBottom: 24 }}>
             Thị trường<br />
-            <em style={{ color: 'var(--accent)', fontStyle: 'italic', fontWeight: 300 }}>~$400M.</em>
+            <em style={{ color: 'var(--accent)', fontStyle: 'italic', fontWeight: 300 }}>$85–125M.</em>
           </h1>
           <p className="dek" style={{ fontSize: 22, maxWidth: 780 }}>
-            Admin merger 1/7/2025 (Hà Nam + Nam Định + Ninh Bình). 2024 NB 8.7M · 1.5M foreign (+30%). Aloha Vietnam 7,905 reviews 5★ moat day-trip. Aman Retreat opened 8/2025 = luxury tier officially open.
+            Tour-addressable market (est 10-15% của $830M total tourism merged prov). Merger 1/7/2025 (HN+NĐ+NB): 19.4M visitors · 2.2M foreign (11.3%). Aloha 7,905 reviews 5★ moat day-trip. Aman opened 8/2025 = luxury tier officially open.
           </p>
 
           {/* Market stat bar */}

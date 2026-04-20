@@ -24,10 +24,10 @@ function HalongHubPage({ go }) {
           <div className="h-kicker">Vịnh Hạ Long + Lan Hạ — Portfolio 8 loại sản phẩm cruise</div>
           <h1 className="h-display" style={{ fontSize: 80, lineHeight: 1, marginBottom: 24 }}>
             Thị trường<br />
-            <em style={{ color: 'var(--accent)', fontStyle: 'italic', fontWeight: 300 }}>$580–680M.</em>
+            <em style={{ color: 'var(--accent)', fontStyle: 'italic', fontWeight: 300 }}>$395–485M.</em>
           </h1>
           <p className="dek" style={{ fontSize: 22, maxWidth: 760 }}>
-            70–80% khách quốc tế đến Hà Nội đặt cruise Hạ Long. Đầu 2026 foreign-dominant 10:1 (814k vs 79k YTD). Post-Yagi fleet turnover làm sạch field — Lan Hạ UNESCO 2023 extension tạo category mới.
+            Tour-addressable market (est 18-22% của $2.19B total tourism Quảng Ninh). 21.28M khách tỉnh · 4.5M foreign (21.1%) · Hạ Long Bay riêng 3.5M. Cruise segment GMV $580-680M — đầu 2026 foreign-dominant 10:1. Post-Yagi fleet turnover + Lan Hạ UNESCO 2023.
           </p>
 
           {/* Market stat bar */}

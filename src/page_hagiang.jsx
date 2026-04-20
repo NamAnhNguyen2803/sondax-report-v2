@@ -25,10 +25,10 @@ function HagiangHubPage({ go }) {
           <div className="h-kicker">Hà Giang Loop · Đồng Văn Karst UNESCO · Portfolio 8 loại sản phẩm</div>
           <h1 className="h-display" style={{ fontSize: 80, lineHeight: 1, marginBottom: 24 }}>
             Thị trường<br />
-            <em style={{ color: 'var(--accent)', fontStyle: 'italic', fontWeight: 300 }}>~$380M.</em>
+            <em style={{ color: 'var(--accent)', fontStyle: 'italic', fontWeight: 300 }}>$72–90M.</em>
           </h1>
           <p className="dek" style={{ fontSize: 22, maxWidth: 780 }}>
-            2023 Hà Giang +33% YoY · foreign +296% sau NYT "52 places" + WTA "Asia's Leading Emerging Destination". Apr 2026 fatality shock → regulation tightening → premium-safety tier structural winner.
+            Tour-addressable market (est 20-25% của ~$360M total tourism, share cao do foreign-skew motorbike-loop). 3.5M khách target · ~430K foreign (12%). Apr 2026 regulation shock → premium-safety tier winner. Expressway Phase 1 cuối 2026.
           </p>
 
           {/* Market stat bar */}
