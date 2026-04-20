@@ -809,85 +809,82 @@ function HagiangVariantDetail({ id, go }) {
         </section>
       )}
 
-      {/* Pain points */}
-      {v.painPoints && (
+      {/* Pain points + Voice of customer (merged) */}
+      {(v.painPoints || v.reviewSnippets) && (
         <section className="section" style={{ background: 'var(--paper-2)' }}>
           <div className="stage">
             <SectionHeader
-              kicker="Pain points sản phẩm này"
-              title={`${v.painPoints.length} lý do khách 1–3★.`}
-              dek="Mined từ TripAdvisor + operator safety-explainer 2023–2025. Mỗi pain → market gap cho differentiation."
+              kicker="Pain points + Voice of customer"
+              title={v.painPoints ? `${v.painPoints.length} lý do khách 1–3★ + quote thực tế.` : 'Khách nói gì về sản phẩm này.'}
+              dek="Pain points mined từ TripAdvisor + operator safety-explainer 2023–2025. Mỗi pain → market gap + quote hỗ trợ."
             />
-            <div style={{ borderTop: '2px solid var(--ink)' }}>
-              {v.painPoints.map((p, i) => (
-                <div key={i} style={{ display: 'grid', gridTemplateColumns: '32px 1fr 140px 80px 1.2fr', gap: 20, padding: '22px 0', borderBottom: '1px solid var(--rule)', alignItems: 'start' }}>
-                  <div style={{ fontFamily: 'var(--mono)', fontSize: 13, fontWeight: 500, color: p.sev >= 5 ? 'var(--accent)' : 'var(--ink-3)' }}>#{i + 1}</div>
-                  <div>
-                    <div style={{ fontFamily: 'var(--serif)', fontSize: 16, fontWeight: 500, lineHeight: 1.4, marginBottom: 6 }}>{p.pain}</div>
-                    <div style={{ display: 'flex', gap: 3 }}>
-                      {[1,2,3,4,5].map((s) => (
-                        <span key={s} style={{ color: s <= p.sev ? 'var(--accent)' : 'var(--rule)', fontSize: 12 }}>★</span>
-                      ))}
+
+            {v.painPoints && (
+              <div style={{ borderTop: '2px solid var(--ink)' }}>
+                {v.painPoints.map((p, i) => (
+                  <div key={i} style={{ display: 'grid', gridTemplateColumns: '32px 1fr 140px 80px 1.2fr', gap: 20, padding: '22px 0', borderBottom: '1px solid var(--rule)', alignItems: 'start' }}>
+                    <div style={{ fontFamily: 'var(--mono)', fontSize: 13, fontWeight: 500, color: p.sev >= 5 ? 'var(--accent)' : 'var(--ink-3)' }}>#{i + 1}</div>
+                    <div>
+                      <div style={{ fontFamily: 'var(--serif)', fontSize: 16, fontWeight: 500, lineHeight: 1.4, marginBottom: 6 }}>{p.pain}</div>
+                      <div style={{ display: 'flex', gap: 3 }}>
+                        {[1,2,3,4,5].map((s) => (
+                          <span key={s} style={{ color: s <= p.sev ? 'var(--accent)' : 'var(--rule)', fontSize: 12 }}>★</span>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="label" style={{ marginBottom: 2 }}>Tần suất</div>
+                      <div className="num" style={{ fontSize: 13, color: 'var(--accent)' }}>{p.freq}</div>
+                    </div>
+                    <div>
+                      <div className="label" style={{ marginBottom: 2 }}>Độ nặng</div>
+                      <div className="num" style={{ fontSize: 16, color: p.sev >= 5 ? 'var(--accent)' : 'var(--ink-2)' }}>{p.sev}/5</div>
+                    </div>
+                    <div className="callout" style={{ margin: 0, borderLeftColor: 'var(--ok)' }}>
+                      <span className="callout-label" style={{ color: 'var(--ok)' }}>Market gap</span>
+                      {p.opp}
                     </div>
                   </div>
+                ))}
+              </div>
+            )}
+
+            {/* Verbatim reviews — inline VOC */}
+            {v.reviewSnippets && (
+              <div style={{ marginTop: 40, paddingTop: 32, borderTop: '2px solid var(--ink)' }}>
+                <div className="h-kicker" style={{ marginBottom: 16 }}>Quote khách thật — hỗ trợ pain points phía trên</div>
+                <div className="grid-2" style={{ gridTemplateColumns: '1fr 1fr', gap: 40 }}>
                   <div>
-                    <div className="label" style={{ marginBottom: 2 }}>Tần suất</div>
-                    <div className="num" style={{ fontSize: 13, color: 'var(--accent)' }}>{p.freq}</div>
+                    <div className="h-kicker" style={{ color: 'var(--accent)', marginBottom: 12 }}>★ 1–4 · Pain driver</div>
+                    {v.reviewSnippets.low.map((r, i) => (
+                      <div key={i} style={{ marginBottom: 14, padding: '14px 18px', background: 'var(--paper)', borderLeft: '3px solid var(--accent)' }}>
+                        <div style={{ display: 'flex', gap: 2, marginBottom: 6 }}>
+                          {[1,2,3,4,5].map((s) => (
+                            <span key={s} style={{ color: s <= r.star ? 'var(--accent)' : 'var(--rule)', fontSize: 11 }}>★</span>
+                          ))}
+                        </div>
+                        <div style={{ fontFamily: 'var(--serif)', fontSize: 14, fontStyle: 'italic', lineHeight: 1.55, color: 'var(--ink)', marginBottom: 8 }}>"{r.quote}"</div>
+                        <div style={{ fontFamily: 'var(--mono)', fontSize: 10, color: 'var(--ink-3)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{r.source}</div>
+                      </div>
+                    ))}
                   </div>
                   <div>
-                    <div className="label" style={{ marginBottom: 2 }}>Độ nặng</div>
-                    <div className="num" style={{ fontSize: 16, color: p.sev >= 5 ? 'var(--accent)' : 'var(--ink-2)' }}>{p.sev}/5</div>
-                  </div>
-                  <div className="callout" style={{ margin: 0, borderLeftColor: 'var(--ok)' }}>
-                    <span className="callout-label" style={{ color: 'var(--ok)' }}>Market gap</span>
-                    {p.opp}
+                    <div className="h-kicker" style={{ color: 'var(--ok)', marginBottom: 12 }}>★ 5 · What works</div>
+                    {v.reviewSnippets.high.map((r, i) => (
+                      <div key={i} style={{ marginBottom: 14, padding: '14px 18px', background: 'var(--paper)', borderLeft: '3px solid var(--ok)' }}>
+                        <div style={{ display: 'flex', gap: 2, marginBottom: 6 }}>
+                          {[1,2,3,4,5].map((s) => (
+                            <span key={s} style={{ color: s <= r.star ? 'var(--ok)' : 'var(--rule)', fontSize: 11 }}>★</span>
+                          ))}
+                        </div>
+                        <div style={{ fontFamily: 'var(--serif)', fontSize: 14, fontStyle: 'italic', lineHeight: 1.55, color: 'var(--ink)', marginBottom: 8 }}>"{r.quote}"</div>
+                        <div style={{ fontFamily: 'var(--mono)', fontSize: 10, color: 'var(--ink-3)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{r.source}</div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Voice of customer */}
-      {v.reviewSnippets && (
-        <section className="section">
-          <div className="stage">
-            <SectionHeader
-              kicker="Voice of customer"
-              title="Khách nói gì — 1★ vs 5★."
-              dek="Quote thật lấy từ TripAdvisor + operator sites 2023–2025."
-            />
-            <div className="grid-2" style={{ gridTemplateColumns: '1fr 1fr', gap: 48, borderTop: '2px solid var(--ink)', paddingTop: 32 }}>
-              <div>
-                <div className="h-kicker" style={{ color: 'var(--accent)', marginBottom: 16 }}>★ 1–4 · Pain driver</div>
-                {v.reviewSnippets.low.map((r, i) => (
-                  <div key={i} style={{ marginBottom: 20, padding: '16px 20px', background: 'var(--paper-2)', borderLeft: '3px solid var(--accent)' }}>
-                    <div style={{ display: 'flex', gap: 2, marginBottom: 8 }}>
-                      {[1,2,3,4,5].map((s) => (
-                        <span key={s} style={{ color: s <= r.star ? 'var(--accent)' : 'var(--rule)', fontSize: 11 }}>★</span>
-                      ))}
-                    </div>
-                    <div style={{ fontFamily: 'var(--serif)', fontSize: 15, fontStyle: 'italic', lineHeight: 1.55, color: 'var(--ink)', marginBottom: 10 }}>"{r.quote}"</div>
-                    <div style={{ fontFamily: 'var(--mono)', fontSize: 10, color: 'var(--ink-3)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{r.source}</div>
-                  </div>
-                ))}
               </div>
-              <div>
-                <div className="h-kicker" style={{ color: 'var(--ok)', marginBottom: 16 }}>★ 5 · What works</div>
-                {v.reviewSnippets.high.map((r, i) => (
-                  <div key={i} style={{ marginBottom: 20, padding: '16px 20px', background: 'var(--paper-2)', borderLeft: '3px solid var(--ok)' }}>
-                    <div style={{ display: 'flex', gap: 2, marginBottom: 8 }}>
-                      {[1,2,3,4,5].map((s) => (
-                        <span key={s} style={{ color: s <= r.star ? 'var(--ok)' : 'var(--rule)', fontSize: 11 }}>★</span>
-                      ))}
-                    </div>
-                    <div style={{ fontFamily: 'var(--serif)', fontSize: 15, fontStyle: 'italic', lineHeight: 1.55, color: 'var(--ink)', marginBottom: 10 }}>"{r.quote}"</div>
-                    <div style={{ fontFamily: 'var(--mono)', fontSize: 10, color: 'var(--ink-3)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>{r.source}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            )}
           </div>
         </section>
       )}
