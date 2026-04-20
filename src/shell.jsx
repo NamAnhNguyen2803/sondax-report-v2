@@ -188,6 +188,8 @@ function buildCrumbs(route) {
       crumbs.push({ label: 'Hà Nội Hub', to: { tab: 'tours', id: 'hanoi-hub' } });
     } else if (route.id === 'halong-hub') {
       crumbs.push({ label: 'Hạ Long Hub', to: { tab: 'tours', id: 'halong-hub' } });
+    } else if (route.id === 'hagiang-hub') {
+      crumbs.push({ label: 'Hà Giang Hub', to: { tab: 'tours', id: 'hagiang-hub' } });
     } else if (typeof route.id === 'string' && route.id.startsWith('hn-')) {
       crumbs.push({ label: 'Hà Nội Hub', to: { tab: 'tours', id: 'hanoi-hub' } });
       const v = D.hanoiHub && D.hanoiHub.variants && D.hanoiHub.variants.find((x) => x.id === route.id);
@@ -195,6 +197,10 @@ function buildCrumbs(route) {
     } else if (typeof route.id === 'string' && route.id.startsWith('hl-')) {
       crumbs.push({ label: 'Hạ Long Hub', to: { tab: 'tours', id: 'halong-hub' } });
       const v = D.halongHub && D.halongHub.variants && D.halongHub.variants.find((x) => x.id === route.id);
+      crumbs.push({ label: v ? v.name : route.id, to: { tab: 'tours', id: route.id } });
+    } else if (typeof route.id === 'string' && route.id.startsWith('hg-')) {
+      crumbs.push({ label: 'Hà Giang Hub', to: { tab: 'tours', id: 'hagiang-hub' } });
+      const v = D.hagiangHub && D.hagiangHub.variants && D.hagiangHub.variants.find((x) => x.id === route.id);
       crumbs.push({ label: v ? v.name : route.id, to: { tab: 'tours', id: route.id } });
     } else {
       const t = D.tours.find((x) => x.id === route.id);

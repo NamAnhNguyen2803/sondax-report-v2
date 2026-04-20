@@ -4,12 +4,15 @@ import DATA from './data.js';
 import { SectionHeader, Placeholder, MarketChip, OtaChip, XLink } from './shell.jsx';
 import HalongHubPage, { HalongVariantDetail } from './page_halong.jsx';
 import HanoiHubPage, { HanoiProductDetail } from './page_hanoi.jsx';
+import HagiangHubPage, { HagiangVariantDetail } from './page_hagiang.jsx';
 
 function ToursPage({ route, go }) {
   if (route.id === 'halong-hub') return <HalongHubPage go={go} />;
   if (route.id === 'hanoi-hub') return <HanoiHubPage go={go} />;
+  if (route.id === 'hagiang-hub') return <HagiangHubPage go={go} />;
   if (route.id && route.id.startsWith('hn-')) return <HanoiProductDetail id={route.id} go={go} />;
   if (route.id && route.id.startsWith('hl-')) return <HalongVariantDetail id={route.id} go={go} />;
+  if (route.id && route.id.startsWith('hg-')) return <HagiangVariantDetail id={route.id} go={go} />;
   if (route.id) return <TourDetail id={route.id} go={go} />;
   return <ToursIndex go={go} />;
 }
@@ -95,7 +98,7 @@ function ToursIndex({ go }) {
         <div className="stage">
           {/* Destination Hubs — featured */}
           <div className="label" style={{ marginBottom: 16, color: 'var(--accent)' }}>DESTINATION HUBS · NGHIÊN CỨU ĐẦY ĐỦ</div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 48 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 24, marginBottom: 48 }}>
 
             {/* Hà Nội Hub */}
             <div style={{
@@ -125,6 +128,23 @@ function ToursIndex({ go }) {
               </p>
               <div style={{ marginTop: 14, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                 {['Day Cruise', 'Overnight 1N2D', 'Premium 2N3D', 'Lan Hạ ↑', 'Luxury', 'Seaplane ↑'].map((v) => (
+                  <span key={v} style={{ fontFamily: 'var(--mono)', fontSize: 10, padding: '3px 8px', border: '1px solid var(--rule)', color: 'var(--ink-3)', textTransform: 'uppercase' }}>{v}</span>
+                ))}
+              </div>
+              <div style={{ marginTop: 16, fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--accent)' }}>↗ Vào hub</div>
+            </div>
+
+            {/* Hà Giang Hub */}
+            <div style={{
+              border: '2px solid var(--ink)', padding: 28, background: 'var(--paper)', cursor: 'pointer',
+            }} onClick={() => go({ tab: 'tours', id: 'hagiang-hub' })}>
+              <div className="label" style={{ marginBottom: 8, color: 'var(--accent)' }}>HÀ GIANG · 8 SẢN PHẨM</div>
+              <h3 className="h-display" style={{ fontSize: 28, marginBottom: 10 }}>Hà Giang Loop Hub</h3>
+              <p className="body" style={{ fontSize: 14, color: 'var(--ink-2)', lineHeight: 1.5 }}>
+                ~$380M · 8 SKU (Loop easyrider/self-drive/Jeep · Buckwheat photo · Lô Lô homestay · Lũng Cú). Apr 2026 safety regulation reshapes competitive map. Premium tier tailwind.
+              </p>
+              <div style={{ marginTop: 14, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                {['Easyrider 3N4D', 'Self-Drive', 'Jeep ↑', 'Buckwheat ↑', 'Lô Lô ↑', 'Lũng Cú ↗'].map((v) => (
                   <span key={v} style={{ fontFamily: 'var(--mono)', fontSize: 10, padding: '3px 8px', border: '1px solid var(--rule)', color: 'var(--ink-3)', textTransform: 'uppercase' }}>{v}</span>
                 ))}
               </div>
