@@ -5,14 +5,20 @@ import { SectionHeader, Placeholder, MarketChip, OtaChip, XLink } from './shell.
 import HalongHubPage, { HalongVariantDetail } from './page_halong.jsx';
 import HanoiHubPage, { HanoiProductDetail } from './page_hanoi.jsx';
 import HagiangHubPage, { HagiangVariantDetail } from './page_hagiang.jsx';
+import SapaHubPage, { SapaVariantDetail } from './page_sapa.jsx';
+import NinhbinhHubPage, { NinhbinhVariantDetail } from './page_ninhbinh.jsx';
 
 function ToursPage({ route, go }) {
   if (route.id === 'halong-hub') return <HalongHubPage go={go} />;
   if (route.id === 'hanoi-hub') return <HanoiHubPage go={go} />;
   if (route.id === 'hagiang-hub') return <HagiangHubPage go={go} />;
+  if (route.id === 'sapa-hub') return <SapaHubPage go={go} />;
+  if (route.id === 'ninhbinh-hub') return <NinhbinhHubPage go={go} />;
   if (route.id && route.id.startsWith('hn-')) return <HanoiProductDetail id={route.id} go={go} />;
   if (route.id && route.id.startsWith('hl-')) return <HalongVariantDetail id={route.id} go={go} />;
   if (route.id && route.id.startsWith('hg-')) return <HagiangVariantDetail id={route.id} go={go} />;
+  if (route.id && route.id.startsWith('sp-')) return <SapaVariantDetail id={route.id} go={go} />;
+  if (route.id && route.id.startsWith('nb-')) return <NinhbinhVariantDetail id={route.id} go={go} />;
   if (route.id) return <TourDetail id={route.id} go={go} />;
   return <ToursIndex go={go} />;
 }
@@ -145,6 +151,40 @@ function ToursIndex({ go }) {
               </p>
               <div style={{ marginTop: 14, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                 {['Easyrider 3N4D', 'Self-Drive', 'Jeep ↑', 'Buckwheat ↑', 'Lô Lô ↑', 'Lũng Cú ↗'].map((v) => (
+                  <span key={v} style={{ fontFamily: 'var(--mono)', fontSize: 10, padding: '3px 8px', border: '1px solid var(--rule)', color: 'var(--ink-3)', textTransform: 'uppercase' }}>{v}</span>
+                ))}
+              </div>
+              <div style={{ marginTop: 16, fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--accent)' }}>↗ Vào hub</div>
+            </div>
+
+            {/* Sa Pa Hub */}
+            <div style={{
+              border: '2px solid var(--ink)', padding: 28, background: 'var(--paper)', cursor: 'pointer',
+            }} onClick={() => go({ tab: 'tours', id: 'sapa-hub' })}>
+              <div className="label" style={{ marginBottom: 8, color: 'var(--accent)' }}>SA PA · 8 SẢN PHẨM</div>
+              <h3 className="h-display" style={{ fontSize: 28, marginBottom: 10 }}>Sa Pa (Lào Cai) Hub</h3>
+              <p className="body" style={{ fontSize: 14, color: 'var(--ink-2)', lineHeight: 1.5 }}>
+                ~$1.8B tỉnh · 8 SKU (Trek homestay flagship · Fansipan · Rice photo · Winter KR · Bac Ha). **KR +333% H1 2025** · Revenue premiumize +70%. Expressway 4-lane end-2026.
+              </p>
+              <div style={{ marginTop: 14, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                {['Trek 2N3D', 'Fansipan', 'Rice Photo ↑', 'Premium Ta Phin ↑', 'Winter KR ↑', 'Bac Ha'].map((v) => (
+                  <span key={v} style={{ fontFamily: 'var(--mono)', fontSize: 10, padding: '3px 8px', border: '1px solid var(--rule)', color: 'var(--ink-3)', textTransform: 'uppercase' }}>{v}</span>
+                ))}
+              </div>
+              <div style={{ marginTop: 16, fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--accent)' }}>↗ Vào hub</div>
+            </div>
+
+            {/* Ninh Bình Hub */}
+            <div style={{
+              border: '2px solid var(--ink)', padding: 28, background: 'var(--paper)', cursor: 'pointer',
+            }} onClick={() => go({ tab: 'tours', id: 'ninhbinh-hub' })}>
+              <div className="label" style={{ marginBottom: 8, color: 'var(--accent)' }}>NINH BÌNH · 8 SẢN PHẨM</div>
+              <h3 className="h-display" style={{ fontSize: 28, marginBottom: 10 }}>Ninh Bình Hub</h3>
+              <p className="body" style={{ fontSize: 14, color: 'var(--ink-2)', lineHeight: 1.5 }}>
+                ~$400M · 8 SKU (Tràng An day flagship · 2N3D overnight ↑ · Aman luxury ↑ · Rice photo T5). Aloha 7,905 reviews 5★ moat. Admin merger 1/7/2025. **HSR KHÔNG đến NB near-term.**
+              </p>
+              <div style={{ marginTop: 14, display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                {['Tràng An 1D', 'Tam Cốc 1D', '2N3D ↑', 'Aman Luxury ↑', 'Rice T5 ↑', 'Cúc Phương'].map((v) => (
                   <span key={v} style={{ fontFamily: 'var(--mono)', fontSize: 10, padding: '3px 8px', border: '1px solid var(--rule)', color: 'var(--ink-3)', textTransform: 'uppercase' }}>{v}</span>
                 ))}
               </div>

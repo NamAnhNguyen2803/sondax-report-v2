@@ -6,7 +6,7 @@
 //   otas.js     → otas[] (Viator, Klook, Trip.com, MakeMyTrip…)
 
 import months       from './data/months.js';
-import tours, { halongHub, hanoiHub, hagiangHub } from './data/tours.js';
+import tours, { halongHub, hanoiHub, hagiangHub, sapaHub, ninhbinhHub } from './data/tours.js';
 import markets      from './data/markets.js';
 import otas         from './data/otas.js';
 import destinations, { MONTH_GROUPS, CATEGORY_CATALOG, monthGroup, tourDestinationIndex } from './data/destinations.js';
@@ -15,6 +15,8 @@ const DATA = {
   halongHub,
   hanoiHub,
   hagiangHub,
+  sapaHub,
+  ninhbinhHub,
   months,
   tours,
   markets,

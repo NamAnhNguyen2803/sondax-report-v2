@@ -190,6 +190,10 @@ function buildCrumbs(route) {
       crumbs.push({ label: 'Hạ Long Hub', to: { tab: 'tours', id: 'halong-hub' } });
     } else if (route.id === 'hagiang-hub') {
       crumbs.push({ label: 'Hà Giang Hub', to: { tab: 'tours', id: 'hagiang-hub' } });
+    } else if (route.id === 'sapa-hub') {
+      crumbs.push({ label: 'Sa Pa Hub', to: { tab: 'tours', id: 'sapa-hub' } });
+    } else if (route.id === 'ninhbinh-hub') {
+      crumbs.push({ label: 'Ninh Bình Hub', to: { tab: 'tours', id: 'ninhbinh-hub' } });
     } else if (typeof route.id === 'string' && route.id.startsWith('hn-')) {
       crumbs.push({ label: 'Hà Nội Hub', to: { tab: 'tours', id: 'hanoi-hub' } });
       const v = D.hanoiHub && D.hanoiHub.variants && D.hanoiHub.variants.find((x) => x.id === route.id);
@@ -201,6 +205,14 @@ function buildCrumbs(route) {
     } else if (typeof route.id === 'string' && route.id.startsWith('hg-')) {
       crumbs.push({ label: 'Hà Giang Hub', to: { tab: 'tours', id: 'hagiang-hub' } });
       const v = D.hagiangHub && D.hagiangHub.variants && D.hagiangHub.variants.find((x) => x.id === route.id);
+      crumbs.push({ label: v ? v.name : route.id, to: { tab: 'tours', id: route.id } });
+    } else if (typeof route.id === 'string' && route.id.startsWith('sp-')) {
+      crumbs.push({ label: 'Sa Pa Hub', to: { tab: 'tours', id: 'sapa-hub' } });
+      const v = D.sapaHub && D.sapaHub.variants && D.sapaHub.variants.find((x) => x.id === route.id);
+      crumbs.push({ label: v ? v.name : route.id, to: { tab: 'tours', id: route.id } });
+    } else if (typeof route.id === 'string' && route.id.startsWith('nb-')) {
+      crumbs.push({ label: 'Ninh Bình Hub', to: { tab: 'tours', id: 'ninhbinh-hub' } });
+      const v = D.ninhbinhHub && D.ninhbinhHub.variants && D.ninhbinhHub.variants.find((x) => x.id === route.id);
       crumbs.push({ label: v ? v.name : route.id, to: { tab: 'tours', id: route.id } });
     } else {
       const t = D.tours.find((x) => x.id === route.id);
