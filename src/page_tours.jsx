@@ -2,13 +2,14 @@
 import React, { useState } from 'react';
 import DATA from './data.js';
 import { SectionHeader, Placeholder, MarketChip, OtaChip, XLink } from './shell.jsx';
-import HalongHubPage from './page_halong.jsx';
+import HalongHubPage, { HalongVariantDetail } from './page_halong.jsx';
 import HanoiHubPage, { HanoiProductDetail } from './page_hanoi.jsx';
 
 function ToursPage({ route, go }) {
   if (route.id === 'halong-hub') return <HalongHubPage go={go} />;
   if (route.id === 'hanoi-hub') return <HanoiHubPage go={go} />;
   if (route.id && route.id.startsWith('hn-')) return <HanoiProductDetail id={route.id} go={go} />;
+  if (route.id && route.id.startsWith('hl-')) return <HalongVariantDetail id={route.id} go={go} />;
   if (route.id) return <TourDetail id={route.id} go={go} />;
   return <ToursIndex go={go} />;
 }
