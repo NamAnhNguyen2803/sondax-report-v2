@@ -227,10 +227,15 @@ h4.h-display { font-size: 20px; font-weight: 600; }
 }
 .brand {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 12px;
   cursor: pointer;
   user-select: none;
+}
+.brand-logo {
+  height: 32px;
+  width: auto;
+  display: block;
 }
 .brand-mark {
   font-family: var(--serif);
